@@ -1,19 +1,18 @@
 # Financial Portfolio Analysis
-We're building a financial database and web application to analyze the performances of specific investment stocks & ETFs from FY 2018-2022 to assess the impact of COVID during and post shutdown
+We're building a portfolio analyzer tear sheet to analyze a financial portfolio of specific investment stocks & ETFs from FY 2018-2022 to assess the impact of COVID during and post shutdown.
 
+Tickers used for portfolio analysis:
+- `AMZN` - Amazon.com, Inc.
+- `AMT` - American Tower Corp
+- `XOM` - Exxon Mobil Corp
+- `XLE` - Energy Select Sector SPDR ETF Fund
+- `IYR` - iShares US Real Estate ETF
+- `RTH` - VanEck Retail ETF
 
 > [Deployment site](https://www.google.com "Project 01")
 
 ### Project Description/Outline
 We will use **API** calls to pull in data from XYZ website
-
-Data for the following stocks:
-- **AMZN** - consumer staples
-- **RTH** - ETF
-- **AMT** - AMERICAN Towers
-- **IYR** - Blackrock
-- **XON** - EXXON MOBIL
-- **XLE** - Energy sector ETF
 
 General to dos:
 - pull data from API's
@@ -36,8 +35,8 @@ General to dos:
 - **Ayush Jha** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
 ### Research Questions to Answer
-- Contrary to popular belief, Lorem Ipsum is not simply random text.
-- It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old
+- As a user, I want to be able to access the deployment online
+- 
 
 ### Datasets to be Used
 ```Contrary to popular belief, Lorem Ipsum is not simply random text```. 
