@@ -13,7 +13,7 @@ Tickers used for portfolio analysis:
 - `NDEXSP: .INX` - S&P500 Index
 
 ### Project Description/Outline
-We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API](https://polygon.io/docs/stocks/getting-started "Polygon Stocks API Docs") calls using their [Starter paywall](https://polygon.io/pricing "Polygon pricing")
+We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API](https://polygon.io/docs/stocks/getting-started "Polygon Stocks API Docs") calls using their [Starter paywall](https://polygon.io/pricing "Polygon pricing") with the following features below:
 - $29/month
 - 15-minute delayed data
 - 5 years max historical data
