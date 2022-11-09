@@ -1,4 +1,6 @@
 # Financial Portfolio Analysis
+> [Deployment site](https://www.google.com "Project 01")
+
 We're building a portfolio analyzer tear sheet to analyze a financial portfolio of specific investment stocks & ETFs from FY 2018-2022 to assess the impact of COVID during and post shutdown. We are going to compare the data against the S&P500 index.
 
 Tickers used for portfolio analysis:
@@ -9,8 +11,6 @@ Tickers used for portfolio analysis:
 - `IYR` - iShares US Real Estate ETF
 - `RTH` - VanEck Retail ETF
 - `NDEXSP: .INX` - S&P500 Index
-
-> [Deployment site](https://www.google.com "Project 01")
 
 ### Project Description/Outline
 We will use **API** calls to pull in data from XYZ website
