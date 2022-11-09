@@ -40,7 +40,13 @@ General to dos:
 - **Ayush Jha** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
 ### Research Questions to Answer
-- As a user, I want to be able to access the tool online 
+- As a user, I want to be able to access the portfolio online online
+- As a user, I want access to visualization data for at least 3-5 years in the past from the current time period
+- As a user, I want access to visualization data for only the stocks in the portfolio
+- As a user, I want access to dashboard to assess the movement of the stocks
+- As a user, I want to be able to compare the portfolio against the S&P500 index
+- As a user, I want access to visualization data for multiple scenarios of investment types
+- As a user, I would like suggestions on the following tracks (most risky to most conservative) for the portfolio
 
 ### Datasets to be Used
 ```Contrary to popular belief, Lorem Ipsum is not simply random text```.
