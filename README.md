@@ -1,7 +1,7 @@
 # Financial Portfolio Analysis
 > [Deployment site](https://www.google.com "Project 01")
 
-We're building a portfolio analyzer tear sheet to analyze a financial portfolio of specific investment stocks & ETFs from FY 2018-2022 to assess the impact of COVID during and post shutdown. We are going to compare the data against the S&P500 index.
+We're building a portfolio analyzer tear sheet to analyze a financial portfolio of specific investment stocks & ETFs from FY 2017-2022 to assess the impact of COVID during and post shutdown. We are going to compare the data against the S&P500 index.
 
 Tickers used for portfolio analysis:
 - `AMZN` - Amazon.com, Inc.
@@ -13,7 +13,11 @@ Tickers used for portfolio analysis:
 - `NDEXSP: .INX` - S&P500 Index
 
 ### Project Description/Outline
-We will use **API** calls to pull in data from XYZ website
+We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API](https://polygon.io/docs/stocks/getting-started "Polygon Stocks API Docs") calls using their [Starter paywall](https://polygon.io/pricing "Polygon pricing")
+- $29/month
+- 15-minute delayed data
+- 5 years max historical data
+- 100% market coverage
 
 General to dos:
 - pull data from API's
