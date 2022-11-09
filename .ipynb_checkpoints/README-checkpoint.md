@@ -44,11 +44,6 @@ General to dos:
 ### Github strategy
 Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `BenSmook`, `jha-ayush`
 
-**Github branching strategy**
-
-
-<img src="https://www.flagship.io/wp-content/uploads/gitflow-branching-strategy.png" alt="Github branching strategy" width="400" height="">
-
 ### Final Visualization Images
 
 **Image 1**
@@ -56,15 +51,5 @@ Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `Ben
 
 <img src="https://imageio.forbes.com/specials-images/dam/imageserve/1135926485/0x0.jpg?format=jpg&width=1200" alt="Crypto" width="600" height="">
 
-**Image 2**
-
-
-<img src="https://static.infragistics.com/marketing/reveal/solutions/crypto-analytics/reveal-solution-crypto-analytics-portfolio-dashboard-768.jpg" alt="Dashboard" width="600" height="">
-
-
-**Image 3**
-
-
-<img src="https://www.bankrate.com/2019/03/22142110/How-to-trade-stocks.jpg" alt="Stocks" width="600" height="">
 
 ###### Footnotes
