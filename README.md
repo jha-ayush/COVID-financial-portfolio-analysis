@@ -39,12 +39,10 @@ General to dos:
 - As a user, I want to be able to access the deployment online 
 
 ### Datasets to be Used
-```Contrary to popular belief, Lorem Ipsum is not simply random text```. 
-
-It has roots in a piece of classical Latin literature from 45 BC, making it over `2000 years old`
+```Contrary to popular belief, Lorem Ipsum is not simply random text```.
 
 ### Github strategy
-Create branches: `master`, `develop`, `feature`, `release`, `hotfix`
+Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `BenSmook`, `jha-ayush`
 
 **Github branching strategy**
 
