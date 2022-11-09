@@ -14,10 +14,10 @@ Tickers used for portfolio analysis:
 
 ### Project Description/Outline
 We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API](https://polygon.io/docs/stocks/getting-started "Polygon Stocks API Docs") calls using their [Starter paywall](https://polygon.io/pricing "Polygon pricing") with the following features below:
-- $29/month
-- 15-minute delayed data
-- 5 years max historical data
-- 100% market coverage
+- <sub>$29/month</sub>
+- <sub>15-minute delayed data</sub>
+- <sub>5 years max historical data</sub>
+- <sub>100% market coverage</sub>
 
 General to dos:
 - pull data from API's
