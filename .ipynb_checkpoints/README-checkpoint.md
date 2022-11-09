@@ -36,7 +36,7 @@ General to dos:
 - **Ayush Jha** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
 ### Research Questions to Answer
-- As a user, I want to be able to access the deployment online 
+- As a user, I want to be able to access the tool online 
 
 ### Datasets to be Used
 ```Contrary to popular belief, Lorem Ipsum is not simply random text```.
