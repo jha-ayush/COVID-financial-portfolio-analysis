@@ -25,13 +25,14 @@ General to dos:
 - calculate returns
 - variance
 - covariance
+- alpha
 - beta
+- Sharpe ratio
 - mean
 - summary statistics
 - Montecarlo simulations
-- questionary with sql
-- dashboard
-- Web app deployment
+- questionary with SQL
+- Dashboard deployment
 
 ### Team members & tasks
 - **Christine Pham** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -64,3 +65,7 @@ Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `Ben
 
 
 ###### Footnotes
+
+- Credit rise shares mutual funds Fitch growth prices money risk rollover managed exchange. 
+- Term volatile municipal interest dividends. 
+- Moody's market exposure tax yield benchmark hedge fund credit quality rise comodity. 
