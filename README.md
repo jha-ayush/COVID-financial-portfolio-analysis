@@ -64,3 +64,5 @@ Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `Ben
 
 
 ###### Footnotes
+
+- Lorem imsum
