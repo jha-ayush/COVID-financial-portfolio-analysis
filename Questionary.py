@@ -1,6 +1,9 @@
 import questionary
-#import import_ipynb
-#import prepandemic_financial_portfolio_analyzer.ipynb as pre
+from prepandemic import  top_stock
+from prepandemic import  top_etf
+from prepandemic import  sur_spy
+from prepandemic import  bottom_stock
+from prepandemic import  bottom_etf
 
 user_choice = questionary.select("What would you like answers to\
                                  Choose 1 for: Which stock performed well in pre pandemic\
@@ -11,12 +14,12 @@ user_choice = questionary.select("What would you like answers to\
 ,choices = ["1","2","3","4","5"]).ask()
 
 if user_choice =="1":
-    pre.top_stock()
+    top_stock()
 elif user_choice=="2":
-    pre.top_etf()
+    top_etf()
 elif user_choice=="3":
-    pre.sur_spy()
+    sur_spy()
 elif user_choice=="4":
-    pre.bottom_stock()
+    bottom_stock()
 elif user_choice=="5": 
-    pre.botton_etf()          
+    botton_etf()          
