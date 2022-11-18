@@ -5,7 +5,7 @@ from streamlit_lottie import st_lottie
 
 
 # Set page configurations - ALWAYS at the top
-st.set_page_config(page_title="COVID portfolio analyzer", page_icon=":bar_chart:",layout="wide")
+st.set_page_config(page_title="COVID portfolio analyzer",page_icon=":bar_chart:",layout="wide")
 
 # Create a function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
 def load_lottieurl(url):
