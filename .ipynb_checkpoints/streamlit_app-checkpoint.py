@@ -39,7 +39,7 @@ with st.container():
      with left_column:
           st.title("Financial analysis of stocks & ETFs against the S&P500 index")
      with right_column:
-        st_lottie(lottiefiles_gif,height="100",key="finance") 
+        st_lottie(lottiefiles_gif,height="75",key="finance") 
         
 # Tearsheets
 with st.container():
