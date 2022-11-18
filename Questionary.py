@@ -1,4 +1,5 @@
-import questionary
+#pip install questionary
+#import questionary
 from prepandemic import  top_stock
 from prepandemic import  top_etf
 from prepandemic import  sur_spy

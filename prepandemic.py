@@ -9,6 +9,12 @@
 #pip install polygon-api-client
 
 
+# In[86]:
+
+
+#pip install polygon-api-client
+
+
 # In[ ]:
 
 
@@ -37,7 +43,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 # In[4]:
 
 
-from IPython.display import display_html 
+from oIPythn.display import display_html 
 
 
 # In[5]:
@@ -237,31 +243,31 @@ display_html(dfT_style._repr_html_() + dfR_style._repr_html_() + dfE_style._repr
 # ### A) Analyzing Each Stock and ETF Individually
 # 
 
-# In[30]:
+# In[121]:
 
 
 import warnings
 warnings.filterwarnings("ignore")
 
 
-# In[46]:
+# In[122]:
 
 
 from pytz import timezone
-from IPython.display import clear_output
+#from IPython.display import clear_output
 from time import sleep
 import numpy as np
 import pyfolio as pf
 import sqlalchemy
 
 
-# In[47]:
+# In[123]:
 
 
 Pandemic_prices_df = pd.concat([AMZN_daily_returns_df, RTH_daily_returns_df, AMT_daily_returns_df, IYR_daily_returns_df, XOM_daily_returns_df, XLE_daily_returns_df, SPY_daily_returns_df],axis=1, keys=["AMZN","RTH","AMT","IYR","XOM","XLE","SPY"])
 
 
-# In[91]:
+# In[150]:
 
 
 pandemic_std=pd.DataFrame(Pandemic_prices_df.std())
@@ -272,7 +278,7 @@ pandemic_std['ticker_type']=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
 pandemic_std
 
 
-# In[92]:
+# In[170]:
 
 
 pandemic_mean=pd.DataFrame(Pandemic_prices_df.std())
@@ -283,60 +289,60 @@ pandemic_mean['Ticker_type']=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
 pandemic_mean
 
 
-# In[93]:
+# In[171]:
 
 
 database_connection_string = 'sqlite:///'
 
 
-# In[94]:
+# In[172]:
 
 
 engine = sqlalchemy.create_engine(database_connection_string)
 
 
-# In[95]:
+# In[173]:
 
 
 engine.table_names()
 
 
-# In[96]:
+# In[174]:
 
 
 pandemic_mean.to_sql('portfolio_mean',engine)
 
 
-# In[97]:
+# In[175]:
 
 
 engine.table_names()
 
 
-# In[98]:
+# In[176]:
 
 
 del_spy_mean = """delete from portfolio_mean where mean=0.000288"""
 engine.execute(del_spy_mean)
 
 
-# In[99]:
+# In[202]:
 
 
 def top_stock():
-    sel_port_max_mean="""select Ticker from portfolio_mean where mean= (select max(mean) from portfolio_mean where Ticker_type='Stock')"""
+    sel_port_max_mean="""select Ticker from portfolio_mean where mean= (select max(Mean) from portfolio_mean where Ticker_type='Stock')"""
     max_mean=engine.execute(sel_port_max_mean)
     for row in max_mean:
         print(row)
 
 
-# In[100]:
+# In[203]:
 
 
 top_stock()
 
 
-# In[101]:
+# In[204]:
 
 
 def bottom_stock():
@@ -346,29 +352,29 @@ def bottom_stock():
         print(row)
 
 
-# In[102]:
+# In[180]:
 
 
 bottom_stock()
 
 
-# In[103]:
+# In[205]:
 
 
 def top_etf():
-    sel_port_max_mean="""select Ticker from portfolio_mean where mean= (select max(mean) from portfolio_mean where Ticker_type='ETF')"""
+    sel_port_max_mean="""select Ticker from portfolio_mean where mean= (select max(Mean) from portfolio_mean where Ticker_type='ETF')"""
     max_mean=engine.execute(sel_port_max_mean)
     for row in max_mean:
         print(row)
 
 
-# In[104]:
+# In[206]:
 
 
 top_etf()
 
 
-# In[105]:
+# In[207]:
 
 
 def bottom_etf():
@@ -378,29 +384,29 @@ def bottom_etf():
         print(row)
 
 
-# In[106]:
+# In[208]:
 
 
 bottom_etf()
 
 
-# In[107]:
+# In[223]:
 
 
 def sur_spy():
-    sel_port_sur_spy="""select Ticker from portfolio_mean where mean>0.0002883803029169555"""
+    sel_port_sur_spy="""select Ticker from portfolio_mean where Mean>0.009506"""
     sur_spy=engine.execute(sel_port_sur_spy)
     for row in sur_spy:
         print(row)
 
 
-# In[108]:
+# In[224]:
 
 
 sur_spy()
 
 
-# In[ ]:
+# In[199]:
 
 
 Pandemic_prices_df
@@ -557,7 +563,7 @@ XLE_var=XLE_daily_returns_df.var()
 XLE_var
 
 
-# In[ ]:
+# In[109]:
 
 
 # Covariance for Each Stock and ETF
@@ -686,58 +692,58 @@ Pandemic_prices_beta_AMZN=AMZN_daily_returns_df['daily_returns'].cov(SPY_daily_r
 Pandemic_prices_beta
 
 
-# In[ ]:
+# In[114]:
 
 
 # Calculate betas of AMZN
-AMZN_beta = AMZN_RTH_Cov
+AMZN_beta = AMZN_daily_returns_df['daily_returns'].cov(SPY_daily_returns_df['daily_returns'])/SPY_daily_returns_df['daily_returns'].var()
 # Display the beta of all stocks and ETFS
 AMZN_beta
 
 
-# In[ ]:
+# In[116]:
 
 
 # Calculate betas of RTH
-#RTH_beta = 
+RTH_beta = RTH_daily_returns_df['daily_returns'].cov(SPY_daily_returns_df['daily_returns'])/SPY_daily_returns_df['daily_returns'].var()
 # Display the beta of all stocks and ETFS
-#RTH_beta
+RTH_beta
 
 
-# In[ ]:
+# In[117]:
 
 
 # Calculate betas of AMT
-#AMT_beta =
+AMT_beta =AMT_daily_returns_df['daily_returns'].cov(SPY_daily_returns_df['daily_returns'])/SPY_daily_returns_df['daily_returns'].var()
 # Display the beta of all stocks and ETFS
-#AMT_beta
+AMT_beta
 
 
-# In[ ]:
+# In[118]:
 
 
 # Calculate betas of IYR
-#IYR_beta = 
+IYR_beta = IYR_daily_returns_df['daily_returns'].cov(SPY_daily_returns_df['daily_returns'])/SPY_daily_returns_df['daily_returns'].var()
 # Display the beta of all stocks and ETFS
-#IYR_beta
+IYR_beta
 
 
-# In[ ]:
+# In[119]:
 
 
 # Calculate betas of XOM
-#XOM_beta = 
+XOM_beta = XOM_daily_returns_df['daily_returns'].cov(SPY_daily_returns_df['daily_returns'])/SPY_daily_returns_df['daily_returns'].var()
 # Display the beta of all stocks and ETFS
-#XOM_beta
+XOM_beta
 
 
-# In[ ]:
+# In[120]:
 
 
 # Calculate betas of XLE 
-#XLE_beta = 
+XLE_beta = XLE_daily_returns_df['daily_returns'].cov(SPY_daily_returns_df['daily_returns'])/SPY_daily_returns_df['daily_returns'].var()
 # Display the beta of all stocks and ETFS
-#XLE_beta
+XLE_beta
 
 
 # In[ ]:
@@ -799,47 +805,55 @@ result = pf.create_returns_tear_sheet(SPY_daily_returns_df.reset_index(level = 1
 # In[ ]:
 
 
-# Calculate alphas of AMZN, RTH, AMT, IYR, XOM, XLE 
-
+# Calculate alphas of AMZN
+Alpha = R – Rf – beta (Rm-Rf)
+AMZN_Alpha = R – Rf – AMZN_beta (Rm-Rf)
 # Display the alphas of all stocks and ETFS
+AMZN_Alpha
 
 
 # In[ ]:
 
 
-# Calculate alphas of AMZN, RTH, AMT, IYR, XOM, XLE 
-
+# Calculate alphas of RTH
+RTH_Alpha = R – Rf – RTH_beta (Rm-Rf)
 # Display the alphas of all stocks and ETFS
+RTH_Alpha
 
 
 # In[ ]:
 
 
-# Calculate alphas of AMZN, RTH, AMT, IYR, XOM, XLE 
-
+# Calculate alphas of AMT
+AMT_Alpha = R – Rf – AMT_beta (Rm-Rf)
 # Display the alphas of all stocks and ETFS
+AMT_Alpha
 
 
 # In[ ]:
 
 
-# Calculate alphas of AMZN, RTH, AMT, IYR, XOM, XLE 
-
+# Calculate alphas of IYR
+IYR_Alpha = R – Rf – IYR_beta (Rm-Rf)
 # Display the alphas of all stocks and ETFS
+IYR_Alpha
 
 
 # In[ ]:
 
 
-# Calculate alphas of AMZN, RTH, AMT, IYR, XOM, XLE 
-
+# Calculate alphas of XOM
+XOM_Alpha = R – Rf – XOM_beta (Rm-Rf)
 # Display the alphas of all stocks and ETFS
+XOM_Alpha
 
 
 # In[ ]:
 
 
-# Calculate alphas of AMZN, RTH, AMT, IYR, XOM, XLE 
+# Calculate alphas of XLE 
+XLEZZ_Alpha = R – Rf – XLE_beta (Rm-Rf)
+XLEZZ_Alpha
 
 
 # ### A) Analyzing What Would Happen To A Portfolio in Each Sector For the Period Before the Pandemic
