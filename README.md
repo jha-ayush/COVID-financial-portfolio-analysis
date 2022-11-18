@@ -62,8 +62,28 @@ General to dos:
 <img src="https://s.yimg.com/uc/fin/img/21/04/8208a05.png" alt="Finance portfolio" width="600" height="">
 
 
-###### Footnotes
+### pip packages
 
-- Credit rise shares mutual funds Fitch growth prices money risk rollover managed exchange. 
-- Term volatile municipal interest dividends. 
-- Moody's market exposure tax yield benchmark hedge fund credit quality rise comodity. 
+- watermark
+- warnings
+- polygon-api-client
+- pandas
+- numpy
+- numba
+- pathlib
+- fire
+- questionary
+- dotenv
+- MCForecastTools
+- streamlit
+- streamlit-lottie
+- watchdog
+- requests
+- Pillow
+
+
+
+
+
+
+
