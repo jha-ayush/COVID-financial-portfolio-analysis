@@ -37,12 +37,12 @@ General to dos:
 - questionary with SQL
 - Dashboard deployment
 
-### Team members & tasks
-- **Christine Pham** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Kranthi Mitta** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Kevin Herndon** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Ben Smookler** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Ayush Jha** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+### Team members
+- **Christine Pham**  -  `cpham35`
+- **Kranthi Mitta**  -  `kranthicmitta`
+- **Kevin Herndon**  -  `Kevtech577`
+- **Ben Smookler**  -  `BenSmook`
+- **Ayush Jha**  -  `jha-ayush`
 
 ### Research Questions to Answer
 - As a user, I want to be able to access the portfolio online online
@@ -53,11 +53,6 @@ General to dos:
 - As a user, I want access to visualization data for multiple scenarios of investment types
 - As a user, I would like suggestions on the following tracks (most risky to most conservative) for the portfolio
 
-### Datasets to be Used
-```Contrary to popular belief, Lorem Ipsum is not simply random text```.
-
-### Github strategy
-Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `BenSmook`, `jha-ayush`
 
 ### Final Visualization Images
 
