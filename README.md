@@ -1,7 +1,7 @@
 # Financial Portfolio Analysis
-> [Deployment site](https://www.google.com "Project 01")
+> [Portfolio Analyzer](https://share.synthesia.io/606a3c1a-5dc5-4f5e-b62c-714122d22ebd "Avatar pitch")
 
-We're building a portfolio analyzer tear sheet to analyze a financial portfolio of specific investment stocks & ETFs from FY 2017-2022 to assess the impact of COVID during and post shutdown. We are going to compare the data against the S&P500 index.
+We built a portfolio analyzer tear sheet to view financial market behaviors of specific investment stocks & ETFs from FY 2017-2022 to assess the impacts of pre-COVID and post-COVID timelines. We are going to compare the data against the S&P500 index.
 
 Tickers used for portfolio analysis:
 - `AMZN` - Amazon.com, Inc.
@@ -61,7 +61,7 @@ Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `Ben
 **Image 1**
 
 
-<img src="https://imageio.forbes.com/specials-images/dam/imageserve/1135926485/0x0.jpg?format=jpg&width=1200" alt="Crypto" width="600" height="">
+<img src="https://s.yimg.com/uc/fin/img/21/04/8208a05.png" alt="Finance portfolio" width="600" height="">
 
 
 ###### Footnotes
