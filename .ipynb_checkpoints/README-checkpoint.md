@@ -1,5 +1,8 @@
 # Financial Portfolio Analysis
-> [Portfolio Analyzer](https://share.synthesia.io/606a3c1a-5dc5-4f5e-b62c-714122d22ebd "Avatar pitch")
+> [Portfolio Analyzer pitch](https://share.synthesia.io/606a3c1a-5dc5-4f5e-b62c-714122d22ebd "Avatar pitch")
+
+
+> [Project presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing "Portfolio Analyzer")
 
 We built a portfolio analyzer tear sheet to view financial market behaviors of specific investment stocks & ETFs from FY 2017-2022 to assess the impacts of pre-COVID and post-COVID timelines. We are going to compare the data against the S&P500 index.
 
