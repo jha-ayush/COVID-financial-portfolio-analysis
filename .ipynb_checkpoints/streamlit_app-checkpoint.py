@@ -7,12 +7,19 @@ from streamlit_lottie import st_lottie
 # Set page configurations - ALWAYS at the top
 st.set_page_config(page_title="COVID portfolio analyzer", page_icon=":bar_chart:",layout="wide")
 
-# Create function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
+# Create a function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
 def load_lottieurl(url):
     r=requests.get(url)
     if r.status_code !=200:
         return None
     return r.json()
+
+# Use local style.css file
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
+        
+local_css("style/style.css")        
     
 # Load assets 
 lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
@@ -67,3 +74,25 @@ with st.container():
     with image_column_7:
         st.write("S&P500 ETF")
         st.image(img_spy_pan_tearsheet)
+        
+# Contact Form
+with st.container():
+    st.write("---")
+    st.subheader("Message us")
+    st.write("##")
+
+    # Documention: https://formsubmit.co/ !!! CHANGE EMAIL ADDRESS !!!
+    contact_form = """
+    <form action="https://formsubmit.co/jha.ayush85@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <textarea name="message" placeholder="Your message here" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+    """
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st.markdown(contact_form, unsafe_allow_html=True)
+    with right_column:
+        st.empty()
