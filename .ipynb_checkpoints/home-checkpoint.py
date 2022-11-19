@@ -59,8 +59,12 @@ with st.container():
         <button type="submit">Send</button>
     </form>
     """
-    left_column, right_column = st.columns(2)
+
+with st.container():    
+    left_column, mid_column, right_column = st.columns(3)
     with left_column:
         st.markdown(contact_form, unsafe_allow_html=True)
+    with mid_column:
+        st.empty()
     with right_column:
         st.empty()
