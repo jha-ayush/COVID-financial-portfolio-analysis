@@ -86,4 +86,8 @@ General to dos:
 
 
 
+<<<<<<< HEAD
 
+=======
+###### Footnotes
+>>>>>>> 1c9f5e3ecda021fe4638f694d66867113cae8883
