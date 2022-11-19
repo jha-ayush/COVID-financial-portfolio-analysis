@@ -83,23 +83,30 @@ def get_prices(start_date,end_date,universe):
     #data.to_csv(file_name, index = False)
     return data
 
-# Display visualizations - dashboards                                 
-user_choice_period = st.selectbox(
-        'What time period would you like to view?',
-    ('pre-pandemic', 'pandemic', 'post-pandemic'))
-if user_choice_period == "pre-pandemic":
-    start_date = "2017-03-01"
-    end_date = "2020-02-29"
-elif user_choice_period == "pandemic":
-    start_date = "2020-03-01"
-    end_date = "2021-02-29"
-elif user_choice_period == "post-pandemic":
-    start_date = "2021-03-01"
-    end_date = "2022-03-01"
+# Display visualizations - dashboards
+with st.container():
+    left_column, mid_column, right_column = st.columns(3)
+    with left_column:
+        user_choice_period = st.selectbox(
+            ('What time period would you like to view?'),
+        ('Pre-pandemic', 'Pandemic', 'Post-pandemic'))
+    if user_choice_period == "Pre-pandemic":
+        start_date = "2017-03-01"
+        end_date = "2020-02-29"
+    elif user_choice_period == "Pandemic":
+        start_date = "2020-03-01"
+        end_date = "2021-02-29"
+    elif user_choice_period == "Post-pandemic":
+        start_date = "2021-03-01"
+        end_date = "2022-03-01"
+    with mid_column:
+        st.empty()
+    with right_column:
+        st.empty()
 
 # Add streamlit working table example - Replace with live dataFrame
 with st.container():
-    st.subheader("Daily Returns")
+    st.subheader("Daily returns")
     st.write(pd.DataFrame({
         'Ticker name':['SPY','AMZN','AMT','XOM','XLE','IYR','RTH'],
         'Daily returns':[0.0010,0.0020,0.0030,0.0040,0.0043,0.0035,0.0078]
