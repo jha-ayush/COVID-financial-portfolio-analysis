@@ -26,8 +26,8 @@ img_spy_pan_tearsheet=Image.open("./Images/spy_pan_tearsheet.png")
         
 # Tearsheets
 with st.container():
-    st.write("---")
     st.header("Tearsheets - AMT, AMZN, IYR, RTH, XLE, XOM, SPY")
+    st.write("---")
     image_column_1,image_column_2,image_column_3,image_column_4,image_column_5,image_column_6,image_column_7=st.columns((1,1,1,1,1,1,1))
     with image_column_1:
         st.write("American Tower Corp")
