@@ -30,6 +30,8 @@ lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf
 The web app analyzes stocks & ETFs against the S&P500 index using [polygon.io](https://polygon.io/stocks) APIs
 
 We used [streamlit](https://docs.streamlit.io) python package to deploy the web app :computer:
+
+GIF provided via json format by [LottieFiles](https://lottiefiles.com/)
 """
 
 # 2 columns - title vs gif
