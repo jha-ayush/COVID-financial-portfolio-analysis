@@ -1,7 +1,10 @@
 # Financial Portfolio Analysis
-> [Deployment site](https://www.google.com "Project 01")
+> [Portfolio Analyzer pitch](https://share.synthesia.io/606a3c1a-5dc5-4f5e-b62c-714122d22ebd "Avatar pitch")
 
-We're building a portfolio analyzer tear sheet to analyze a financial portfolio of specific investment stocks & ETFs from FY 2017-2022 to assess the impact of COVID during and post shutdown. We are going to compare the data against the S&P500 index.
+
+> [Project presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing "Portfolio Analyzer")
+
+We built a portfolio analyzer tear sheet to view financial market behaviors of specific investment stocks & ETFs from FY 2017-2022 to assess the impacts of pre-COVID and post-COVID timelines. We are going to compare the data against the S&P500 index.
 
 Tickers used for portfolio analysis:
 - `AMZN` - Amazon.com, Inc.
@@ -25,20 +28,21 @@ General to dos:
 - calculate returns
 - variance
 - covariance
+- alpha
 - beta
+- Sharpe ratio
 - mean
 - summary statistics
 - Montecarlo simulations
-- questionary with sql
-- dashboard
-- Web app deployment
+- questionary with SQL
+- Dashboard deployment
 
-### Team members & tasks
-- **Christine Pham** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Kranthi Mitta** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Kevin Herndon** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Ben Smookler** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-- **Ayush Jha** - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+### Team members
+- **Christine Pham**  -  `cpham35`
+- **Kranthi Mitta**  -  `kranthicmitta`
+- **Kevin Herndon**  -  `Kevtech577`
+- **Ben Smookler**  -  `BenSmook`
+- **Ayush Jha**  -  `jha-ayush`
 
 ### Research Questions to Answer
 - As a user, I want to be able to access the portfolio online online
@@ -49,18 +53,37 @@ General to dos:
 - As a user, I want access to visualization data for multiple scenarios of investment types
 - As a user, I would like suggestions on the following tracks (most risky to most conservative) for the portfolio
 
-### Datasets to be Used
-```Contrary to popular belief, Lorem Ipsum is not simply random text```.
-
-### Github strategy
-Create branches: `master`, `dev`, `cpham35`, `kranthicmitta`, `Kevtech577`, `BenSmook`, `jha-ayush`
 
 ### Final Visualization Images
 
 **Image 1**
 
 
-<img src="https://imageio.forbes.com/specials-images/dam/imageserve/1135926485/0x0.jpg?format=jpg&width=1200" alt="Crypto" width="600" height="">
+<img src="https://s.yimg.com/uc/fin/img/21/04/8208a05.png" alt="Finance portfolio" width="600" height="">
 
 
-###### Footnotes
+### pip packages
+
+- watermark
+- warnings
+- polygon-api-client
+- pandas
+- numpy
+- numba
+- pathlib
+- fire
+- questionary
+- dotenv
+- MCForecastTools
+- streamlit
+- streamlit-lottie
+- watchdog
+- requests
+- Pillow
+
+
+
+
+
+
+
