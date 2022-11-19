@@ -84,7 +84,7 @@ def get_prices(start_date,end_date,universe):
     #data.to_csv(file_name, index = False)
     return data
 
-
+# Display visualizations - dashboards
 user_choice_period = st.selectbox(
     'What period?',
     ('pre', 'pan', 'post'))                                
@@ -98,5 +98,3 @@ elif user_choice_period == "pandemic":
 elif user_choice_period == "post-pandemic":
     start_date = "2021-03-01"
     end_date = "2022-03-01"
-    
-    
