@@ -16,7 +16,6 @@ import warnings
 warnings.filterwarnings("ignore")
 from pytz import timezone
 import pyfolio as pf
-from IPython.display import display
 import matplotlib
 import re
 
@@ -67,10 +66,6 @@ def get_prices(start_date,end_date,universe):
     return data
     
 
-def date_ranges(start_date,end_date,ticker_list):
-    all_data = get_prices(start_date=start_date, end_date=end_date, universe=ticker_list)    
-    return all_data
-
 def get_ticker_data_df(all_data, ticker_symbol):
     idx = pd.IndexSlice
     daily_returns_df = all_data.loc[idx[:,ticker_symbol],['daily_returns']]
@@ -87,6 +82,13 @@ def create_mean_df(concat_df,ticker_type_list):
     mean_df.columns=['Ticker','Mean']
     mean_df['Ticker_type']=ticker_type_list
     return mean_df
+
+def create_std_df():
+
+def create_var_df():
+
+def create_covar_df():
+
 
 def create_connection():
     database_connection_string = 'sqlite:///'
@@ -145,11 +147,12 @@ def get_ticker_string(str):
         print("RE pattern match failed. Found str : {str}")
             
     
-if __name__ =="__main__":
+if __name__ == "__main__":
     
     user_choice_period = questionary.select("select a period?",choices = ["pre-pandemic","pandemic","postpandemic"]).ask()
     start_date=""
     end_date=""
+    #ticker_list = 
     if user_choice_period == "pre-pandemic":
         start_date = "2017-03-01"
         end_date = "2020-02-29"
@@ -173,7 +176,9 @@ if __name__ =="__main__":
     ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
     ticker_type_list=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
     POLYGON_API_KEY = 'JQfBpF3NpcYjuBdMiXeUr6q54XafY_pQ'
-    all_data_df = date_ranges(start_date,end_date,ticker_list)
+    all_data_df = get_prices(start_date,end_date,ticker_list)
+
+    
     ticker_df_list = []
     for tk in ticker_list:
         ticker_df_list.append(get_ticker_data_df(all_data_df,tk))
@@ -182,6 +187,9 @@ if __name__ =="__main__":
              
     my_df = create_df(ticker_df_list,ticker_list)
     mean_df = create_mean_df(my_df, ticker_type_list)
+    final_df = return_portf(mean_df)
+    tech_return = tech_port_return(mean_df)
+    
     #display(mean_df)
     mysqlengine= create_sql_table(mean_df)
     if user_choice_question =="1":
