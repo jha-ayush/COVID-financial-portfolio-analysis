@@ -2,13 +2,12 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import fire 
-import questionary
+import streamlit as s
 import os
 import json
 import requests
 import sqlalchemy
 from dotenv import load_dotenv
-from MCForecastTools import MCSimulation
 import datetime
 from time import sleep
 from tqdm import tqdm
@@ -24,7 +23,7 @@ def get_prices(start_date,end_date,universe):
     # end_at = datetime.datetime.now() 
     # begin_from = end_at + datetime.timedelta(days=-5000)
     for t in tqdm(universe):
-        print(t)
+        st.write(t)
         print(len(data))
         # for start in pd.date_range(start = begin_from, end = end_at,normalize=True,freq = '88D'):
         #     end = start + datetime.timedelta(days = 88)
@@ -39,18 +38,18 @@ def get_prices(start_date,end_date,universe):
             temp_data = pd.DataFrame(r.json()['results'])
             temp_data['ticker'] = t
             data = data.append(temp_data, ignore_index=True)
-            print(t+':'+str(pd.to_datetime(start_date, unit='s'))+':'+str(pd.to_datetime(end_date, unit='s')))
+            st.write(t+':'+str(pd.to_datetime(start_date, unit='s'))+':'+str(pd.to_datetime(end_date, unit='s')))
         except KeyError:
-            print(f'{t} was not found')
+            st.write(f'{t} was not found')
             pass
         except ValueError:
             pass
         except ConnectionError as error:
-            print(error)
+            st.write(error)
             sleep(200)
             continue
         except TimeoutError as error:
-            print(error)
+            st.write(error)
             sleep(200)
             continue
         sleep(0.25)
@@ -63,7 +62,7 @@ def get_prices(start_date,end_date,universe):
     data["daily_returns"] = data['Close'].groupby('ticker').pct_change()
     data = data.dropna()
     #data.to_csv(file_name, index = False)
-    return data
+    st.write(data)
     
 
 def get_ticker_data_df(all_data, ticker_symbol):
@@ -83,7 +82,13 @@ def create_mean_df(concat_df,ticker_type_list):
     mean_df['Ticker_type']=ticker_type_list
     return mean_df
 
-def create_std_df():
+def create_std_df(concat_df,ticker_type_list):
+    std_df=pd.DataFrame(concat_df.std())
+    std_df=std_df.reset_index()
+    del std_df['level_1']
+    std_df.columns=['Ticker','Mean']
+    std_df['Ticker_type']=ticker_type_list
+    return std_df
 
 def create_var_df():
 

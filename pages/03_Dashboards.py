@@ -8,15 +8,14 @@ import os
 import json
 import requests
 import sqlalchemy
-from dotenv import load_dotenv
-from MCForecastTools import MCSimulation
+# from dotenv import load_dotenv
 import datetime
 from time import sleep
 from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 from pytz import timezone
-import pyfolio as pf
+# import pyfolio as pf
 import matplotlib
 import re
 import streamlit as st
@@ -84,17 +83,24 @@ def get_prices(start_date,end_date,universe):
     #data.to_csv(file_name, index = False)
     return data
 
-# Display visualizations - dashboards
+# Display visualizations - dashboards                                 
 user_choice_period = st.selectbox(
-    'What period?',
-    ('pre', 'pan', 'post'))                                
-
+        'What time period would you like to view?',
+    ('pre-pandemic', 'pandemic', 'post-pandemic'))
 if user_choice_period == "pre-pandemic":
     start_date = "2017-03-01"
     end_date = "2020-02-29"
-elif user_choice_period == "pandemic":       
+elif user_choice_period == "pandemic":
     start_date = "2020-03-01"
     end_date = "2021-02-29"
 elif user_choice_period == "post-pandemic":
     start_date = "2021-03-01"
     end_date = "2022-03-01"
+
+# Add streamlit working table example - Replace with live dataFrame
+with st.container():
+    st.subheader("Daily Returns")
+    st.write(pd.DataFrame({
+        'Ticker name':['SPY','AMZN','AMT','XOM','XLE','IYR','RTH'],
+        'Daily returns':[0.0010,0.0020,0.0030,0.0040,0.0043,0.0035,0.0078]
+    }))
