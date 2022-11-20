@@ -59,7 +59,7 @@ def get_prices(start_date,end_date,universe):
             continue
         sleep(0.25)
 #     data.to_csv(file_name,index = False)
-    print(data)
+    #print(data)
     data.t = pd.to_datetime(data.t, unit = 'ms')
     columns_name = {'t': 'time', 'o': 'Open', 'c': 'Close', 'h': 'High', 'l': 'Low', 'v': 'Volume'} 
     data= data.rename(columns = columns_name)
@@ -99,7 +99,7 @@ def create_std_df(concat_df,ticker_type_list):
     std_df=pd.DataFrame(concat_df.std())
     std_df=std_df.reset_index()
     del std_df['level_1']
-    std_df.columns=['Ticker','Mean']
+    std_df.columns=['Ticker','STD']
     std_df['Ticker_type']=ticker_type_list
     return std_df
 
@@ -194,9 +194,9 @@ def get_covariance_per_ticker(ticker_df_list,ticker_list):
         return
         
     # get dataframe for SPY based on index
-    SPY_df = ticker_df_list[spy_idx]
+    SPY_df = ticker_df_list[spy_idx].reset_index(level = 1, drop= True)
     for idx in range(len(ticker_list)):
-        covar_dict[ticker_list[idx]]=ticker_df_list[idx]['daily_returns'].cov(SPY_df['daily_returns'])
+        covar_dict[ticker_list[idx]]=ticker_df_list[idx].reset_index(level = 1, drop= True)['daily_returns'].cov(SPY_df['daily_returns'])
     return pd.DataFrame(covar_dict, index=[0])
                                                     
 #Beta Function                                                    
@@ -264,8 +264,16 @@ if __name__ =="__main__":
 #Concatenated Data             
     my_concat_df = create_concat_df(ticker_df_list,ticker_list)
     #display(my_concat_df)
+    
+#STD Data
+    std_df = create_std_df(my_concat_df, ticker_type_list)
+    #display(std_df)
+    
+#Mean Data    
     my_mean_df = create_mean_df(my_concat_df,ticker_type_list)
     #display(my_mean_df)
+    
+#SQL Engine    
     mysqlengine= create_sql_table(my_mean_df)
     
     
@@ -291,26 +299,20 @@ if __name__ =="__main__":
         
 #Variance
     var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
-    display(var_df)
+    #display(var_df)
     
     
 #Covariance    
     covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
-    display(covar_df)
+    #display(covar_df)
     
     
 #Beta    
     beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
-    display(beta_df)
+    #display(beta_df)
     
     
-#Misc    
-    #variance = create_var(my_df,daily_returns)
-    #display(variance)                     
-    #mean_df = create_mean_df(my_df, ticker_type_list)
-    #std_df = create_std_df(my_df, ticker_type_list)
-    #display(std_df)
-    #display(mean_df)
+
     
     
     
