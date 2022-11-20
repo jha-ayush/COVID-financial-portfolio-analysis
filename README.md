@@ -33,7 +33,6 @@ General to dos:
 - Sharpe ratio
 - mean
 - summary statistics
-- Montecarlo simulations
 - questionary with SQL
 - Dashboard deployment
 
@@ -52,14 +51,6 @@ General to dos:
 - As a user, I want to be able to compare the portfolio against the S&P500 index
 - As a user, I want access to visualization data for multiple scenarios of investment types
 - As a user, I would like suggestions on the following tracks (most risky to most conservative) for the portfolio
-
-
-### Final Visualization Images
-
-**Image 1**
-
-
-<img src="https://s.yimg.com/uc/fin/img/21/04/8208a05.png" alt="Finance portfolio" width="600" height="">
 
 
 ### pip packages
