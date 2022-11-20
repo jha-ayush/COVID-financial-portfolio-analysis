@@ -1,6 +1,7 @@
 # COVID Portfolio Analysis
 > [Portfolio Analyzer pitch](https://share.synthesia.io/606a3c1a-5dc5-4f5e-b62c-714122d22ebd "Avatar pitch")
 
+> Web app [link](https://jha-ayush-finance-portfolio-analyzer-home-qn1txb.streamlit.app/ "Portfolio analyzer web app")
 
 > [Project presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing "Portfolio Analyzer")
 
