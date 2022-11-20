@@ -101,7 +101,8 @@ We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API]
 - Pillow
 
 
-
+##### Limitations and Future Expectations
+We aim to give users the best experience possible on our streamlit platform, so we have decided to include a wide variety of features that have taken more time than we initially anticipated. Our streamlit platform should be available to users in the upcoming weeks. We appreciate your patience!
 
 
 
