@@ -37,13 +37,13 @@ import json
 import requests
 from dotenv import load_dotenv
 from MCForecastTools import MCSimulation
-get_ipython().run_line_magic('matplotlib', 'inline')
+
 
 
 # In[4]:
 
 
-from oIPythn.display import display_html 
+
 
 
 # In[5]:
@@ -254,7 +254,7 @@ warnings.filterwarnings("ignore")
 
 
 from pytz import timezone
-#from IPython.display import clear_output
+
 from time import sleep
 import numpy as np
 import pyfolio as pf

@@ -161,10 +161,8 @@ def bottom_etf(engine):
 
 #Surpass SPY Function        
 def sur_spy(engine):
-    sel_port_sur_spy="""select Ticker from portfolio_mean where Mean>0.000286"""
+    sel_port_sur_spy="""select b.Ticker from portfolio_mean a, portfolio_mean b where a.Mean<b.Mean and a. Ticker='SPY'"""
     sur_spy=list(engine.execute(sel_port_sur_spy))
-    #[('AMZN',), ('RTH',), ('AMT',)] performed better than SPY needs to be converted to AMZN,RTH,AMT performed better...
-    # new_sur_spy = map(get_ticker_string , sur_spy)
     return pd.DataFrame(sur_spy, columns = ["Best Performers"])
 
 
