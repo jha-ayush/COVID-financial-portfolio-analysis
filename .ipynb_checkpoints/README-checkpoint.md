@@ -53,6 +53,9 @@ The core of our project is essentially a portfolio analyzer that analyzes the re
 - start_date = 2022-03-01
 - end_date = 2022-11-01
 
+#### pip freeze command
+pip list --format=freeze > requirements.txt
+
 
 #### Analysis
 To analyze each sector and time period, we used a variety of metrics and statistics, such as Sharpe Ratio, Calmar Ratio, Omega Ratio and Sortino Ratio.
@@ -101,7 +104,8 @@ We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API]
 - Pillow
 
 
-
+#### Limitations and Future Expectations
+We aim to give users the best experience possible on our streamlit platform, so we have decided to include a wide variety of features that have taken more time to implement than we initially anticipated. Our streamlit platform should be available to users in the upcoming weeks. We appreciate your patience, and in the meantime, enjoy our CLI!
 
 
 
