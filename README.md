@@ -53,6 +53,9 @@ The core of our project is essentially a portfolio analyzer that analyzes the re
 - start_date = 2022-03-01
 - end_date = 2022-11-01
 
+#### pip freeze command
+pip list --format=freeze > requirements.txt
+
 
 #### Analysis
 To analyze each sector and time period, we used a variety of metrics and statistics, such as Sharpe Ratio, Calmar Ratio, Omega Ratio and Sortino Ratio.
