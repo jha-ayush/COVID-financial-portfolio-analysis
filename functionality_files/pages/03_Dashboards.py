@@ -205,7 +205,7 @@ with st.container():
             covar_dict[ticker_list[idx]]=ticker_df_list[idx].reset_index(level = 1, drop= True)['daily_returns'].cov(SPY_df['daily_returns'])
         return pd.DataFrame(covar_dict, index=[0])
 
-    #Beta Function                                                    
+    #Beta Function       
     def get_beta_per_ticker(covar_df,ticker_df_list,ticker_list):
         beta_dict ={}
         try:
@@ -242,8 +242,7 @@ with st.container():
         else:
             st.caption('Period is not valid.')
             
-        st.write("####")
-        
+        st.write("###")       
         st.subheader("Select from the following options from the dropdown menu below:")
         
         user_choice_question = st.selectbox(
@@ -294,31 +293,24 @@ with st.container():
      #CLI OPTIONS   
         if user_choice_question =="Option 1: Which stock(s) performed well?":
             mytopstock = get_ticker_string(top_stock(mysqlengine))
-            # print(f'{mytopstock} is the top performing stock')
             st.success(f'{mytopstock} is the top performing stock', icon="✅")
         elif user_choice_question =="Option 2: Which ETF(s) performed well?":
             mytopetf = get_ticker_string(top_etf(mysqlengine))
             st.success(f'{mytopetf} is the top performing ETF', icon="✅")
-            #print(f'{mytopetf} is top performing ETF')
         elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
             surspy=sur_spy(mysqlengine)
             st.write('Ticker(s) that performed better than SPY is/are:', surspy)
-            #print(f'{str(surspy)} \nPerformed better than SPY')
         elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
             mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
             st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
-            #print(f'{mybottomstock} is worst performing Stock')
         elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
             mybottometf = get_ticker_string(bottom_etf(mysqlengine))
             st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
-            #print(f'{mybottometf} is worst performing ETF')
         else:
-            #print('User choice is not valid')
              st.success(f'User choice is not valid', icon="✅")
 
             
-        st.write("####")
-        
+        st.write("###")
         st.subheader("Choose one of the following ratios below:")
         
         ratio_choice = st.selectbox("",("variance","co-variance","beta","mean","std-deviation"),label_visibility="hidden")
@@ -340,17 +332,3 @@ with st.container():
             st.dataframe(std_df)
         else:
             st.write(f'User choice is not valid')
-
-    #Variance
-        #var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
-        #st.write('Variance values are given below:',var_df)
-
-
-    #Covariance    
-        #covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
-        #st.write('Co-variance values are given below:',covar_df)
-
-
-    #Beta    
-        #beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
-        #st.write('Beta values are given below:',beta_df)
