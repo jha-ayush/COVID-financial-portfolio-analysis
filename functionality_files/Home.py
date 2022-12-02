@@ -68,14 +68,4 @@ with st.container():
         st.empty()
     with right_column:
         st.empty()
-        
-        
-        
-            with st.container():    
-        left_column, mid_column, right_column = st.columns(3)
-        with left_column:
-            st.markdown(user_choice_question, unsafe_allow_html=True)
-        with mid_column:
-            st.empty()
-        with right_column:
-            st.empty()         
+      
