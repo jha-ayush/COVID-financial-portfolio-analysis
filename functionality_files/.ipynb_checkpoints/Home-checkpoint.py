@@ -68,3 +68,4 @@ with st.container():
         st.empty()
     with right_column:
         st.empty()
+      
