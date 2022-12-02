@@ -241,7 +241,7 @@ with st.container():
             start_date = "2021-03-01"
             end_date = "2022-03-01"
         else:
-            st.write('Period is not valid.')
+            st.caption('Period is not valid.')
 
         user_choice_question = st.selectbox(
                                 "Select from the following options from the dropdown menu below:",
@@ -314,8 +314,8 @@ with st.container():
              st.success(f'User choice is not valid', icon="✅")
 
 
-        ratio_choice = st.selectbox('Choose one of the following ratios below:',("variance","co-variance","beta","mean","std deviation"))
-        st.write("You've selected the following ratio:", ratio_choice)
+        ratio_choice = st.selectbox('Choose one of the following ratios below:',("variance","co-variance","beta","mean","std-deviation"))
+        st.write("You've selected the following ratio - ",ratio_choice)
 
         if ratio_choice == "variance":
             var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
@@ -329,7 +329,7 @@ with st.container():
             st.write('Beta values are given below:',beta_df)
         elif ratio_choice == "mean":
             st.dataframe(my_mean_df)
-        elif ratio_choice == "std deviation":
+        elif ratio_choice == "std-deviation":
             st.dataframe(std_df)
         else:
             st.write(f'User choice is not valid')
