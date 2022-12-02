@@ -1,3 +1,4 @@
+import streamlit as st
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -218,9 +219,12 @@ def get_beta_per_ticker(covar_df,ticker_df_list,ticker_list):
                                                     
 if __name__ =="__main__":
 #CLI OPTIONS    
-    user_choice_period = questionary.select("select a period?",choices = ["pre-pandemic","pandemic","post-pandemic"]).ask()
+    #user_choice_period = questionary.select("select a period?",choices = ["pre-pandemic","pandemic","post-pandemic"]).ask()
     start_date=""
     end_date=""
+    user_choice_period = st.radio("select a period?",("pre-pandemic","pandemic","post-pandemic"))
+
+
     if user_choice_period == "pre-pandemic":
         start_date = "2017-03-01"
         end_date = "2020-02-29"
@@ -231,15 +235,25 @@ if __name__ =="__main__":
         start_date = "2021-03-01"
         end_date = "2022-03-01"
     else:
-        print("period not valid")
-    answers = "What would you like answers to \n\
-                                 Choose 1 for: Which stock performed well \n\
-                                 Choose 2 for: Which etf performed well \n\
-                                 Choose 3 for: Which ticker performed better than SPY \n\
-                                 Choose 4 for: Which stock performed inversely \n\
-                                 Choose 5 for: Which ETF performed inversely?"
-    user_choice_question = questionary.select(answers
-    ,choices = ["1","2","3","4","5"]).ask()
+        st.write('Period is not valid.')
+        
+    user_choice_question = st.selectbox(
+                            'Choose 1 for: Which stock performed well \n\
+                             Choose 2 for: Which etf performed well \n\
+                             Choose 3 for: Which ticker performed better than SPY \n\
+                             Choose 4 for: Which stock performed inversely \n\
+                             Choose 5 for: Which ETF performed inversely?"',
+    ("1","2","3","4","5"))
+
+    st.write('You selected:', user_choice_question)
+    #answers = "What would you like answers to \n\
+    #                              Choose 1 for: Which stock performed well \n\
+    #                              Choose 2 for: Which etf performed well \n\
+    #                              Choose 3 for: Which ticker performed better than SPY \n\
+    #                              Choose 4 for: Which stock performed inversely \n\
+    #                              Choose 5 for: Which ETF performed inversely?"
+    # user_choice_question = questionary.select(answers
+    # ,choices = ["1","2","3","4","5"]).ask()
 
 #Ticker List    
     ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
@@ -265,11 +279,11 @@ if __name__ =="__main__":
     
 #STD Data
     std_df = create_std_df(my_concat_df, ticker_type_list)
-    #display(std_df)
+    #st.dataframe(std_df)
     
 #Mean Data    
     my_mean_df = create_mean_df(my_concat_df,ticker_type_list)
-    #display(my_mean_df)
+    #st.dataframe(my_mean_df)
     
 #SQL Engine    
     mysqlengine= create_sql_table(my_mean_df)
@@ -278,37 +292,64 @@ if __name__ =="__main__":
  #CLI OPTIONS   
     if user_choice_question =="1":
         mytopstock = get_ticker_string(top_stock(mysqlengine))
-        print(f'{mytopstock} is top performing stock')
+        # print(f'{mytopstock} is top performing stock')
+        st.success(f'{mytopstock} is top performing stock!', icon="✅")
     elif user_choice_question =="2":
         mytopetf = get_ticker_string(top_etf(mysqlengine))
-        print(f'{mytopetf} is top performing ETF')
+        st.success(f'{mytopetf} is top performing ETF!', icon="✅")
+        #print(f'{mytopetf} is top performing ETF')
     elif user_choice_question =="3":
         surspy=sur_spy(mysqlengine)
-        print(f'{str(surspy)} \nPerformed better than SPY')
+        st.write('Tickers performing better than SPY', surspy)
+        #print(f'{str(surspy)} \nPerformed better than SPY')
     elif user_choice_question =="4":
         mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
-        print(f'{mybottomstock} is worst performing Stock')
+        st.success(f'{mybottomstock} is inversely performing stock!', icon="✅")
+        #print(f'{mybottomstock} is worst performing Stock')
     elif user_choice_question =="5":
         mybottometf = get_ticker_string(bottom_etf(mysqlengine))
-        print(f'{mybottometf} is worst performing ETF')
+        st.success(f'{mybottometf} is inversely performing ETF!', icon="✅")
+        #print(f'{mybottometf} is worst performing ETF')
     else:
-        print('User choice is not valid')
-        
-        
+        #print('User choice is not valid')
+         st.success(f'User choice is not valid', icon="✅")
+     
+   
+    ratio_choice = st.selectbox('Choose below ratio',("variance","co-variance","beta","mean","std deviation"))
+    st.write('You selected:', ratio_choice)
+    
+    if ratio_choice == "variance":
+        var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
+        st.write('Variance values are given below:',var_df)
+    elif ratio_choice == "co-variance":
+        covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
+        st.write('Co-variance values are given below:',covar_df)
+    elif ratio_choice == "beta":
+        covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
+        beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
+        st.write('Beta values are given below:',beta_df)
+    elif ratio_choice == "mean":
+        st.dataframe(my_mean_df)
+    elif ratio_choice == "std deviation":
+        st.dataframe(std_df)
+    else:
+        st.write(f'User choice is not valid')
+            
 #Variance
-    var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
-    #display(var_df)
+    #var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
+    #st.write('Variance values are given below:',var_df)
     
     
 #Covariance    
-    covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
-    #display(covar_df)
+    #covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
+    #st.write('Co-variance values are given below:',covar_df)
     
     
 #Beta    
-    beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
-    #display(beta_df)
-    
+    #beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
+    #st.write('Beta values are given below:',beta_df)
+
+        
     
 
     

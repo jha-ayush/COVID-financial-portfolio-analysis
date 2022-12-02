@@ -297,7 +297,7 @@ if __name__ =="__main__":
         
 #Variance
     var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
-    #display(var_df)
+    display(var_df)
     
     
 #Covariance    
