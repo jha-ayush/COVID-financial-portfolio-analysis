@@ -310,7 +310,7 @@ if __name__ =="__main__":
         #print(f'{mytopetf} is top performing ETF')
     elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
         surspy=sur_spy(mysqlengine)
-        st.write('Tickers that performed better than SPY', surspy)
+        st.write('Ticker(s) that performed better than SPY is/are:', surspy)
         #print(f'{str(surspy)} \nPerformed better than SPY')
     elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
         mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
