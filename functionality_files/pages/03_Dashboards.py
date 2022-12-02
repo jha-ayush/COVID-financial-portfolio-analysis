@@ -34,7 +34,7 @@ def local_css(file_name):
 local_css("./style/style.css")
         
 
-# Header title
+# Title
 with st.container():
     st.title("Dashboards")
     st.write("---")
@@ -220,16 +220,15 @@ with st.container():
         for idx in range(len(ticker_list)):
             tk = ticker_list[idx]
             beta_dict[tk] = float(covar_df.iloc[0,idx])/SPY_var
-        return pd.DataFrame(beta_dict, index=[0])                                        
+        return pd.DataFrame(beta_dict, index=[0])         
 
-
-
+    #Begin streamlit functionality
     if __name__ =="__main__":
     #CLI OPTIONS    
-        #user_choice_period = questionary.select("select a period?",choices = ["pre-pandemic","pandemic","post-pandemic"]).ask()
         start_date=""
         end_date=""
-        user_choice_period = st.radio("Select a time-period:",("pre-pandemic","pandemic","post-pandemic"),label_visibility="visible")
+        st.subheader("Select a time-period:")
+        user_choice_period = st.radio("",("pre-pandemic","pandemic","post-pandemic"),label_visibility="hidden")
 
         if user_choice_period == "pre-pandemic":
             start_date = "2017-03-01"
@@ -242,15 +241,19 @@ with st.container():
             end_date = "2022-03-01"
         else:
             st.caption('Period is not valid.')
-
+            
+        st.write("####")
+        
+        st.subheader("Select from the following options from the dropdown menu below:")
+        
         user_choice_question = st.selectbox(
-                                "Select from the following options from the dropdown menu below:",
+                                "",
         ("Option 1: Which stock(s) performed well?",
          "Option 2: Which ETF(s) performed well?",
          "Option 3: Which ticker(s) performed better than SPY?",
          "Option 4: Which stock(s) performed inversely?"
          ,"Option 5: Which ETF(s) performed inversely?"),
-            label_visibility="visible")
+            label_visibility="hidden")
 
         st.write("You've selected the following - ", user_choice_question)
 
@@ -313,8 +316,12 @@ with st.container():
             #print('User choice is not valid')
              st.success(f'User choice is not valid', icon="✅")
 
-
-        ratio_choice = st.selectbox('Choose one of the following ratios below:',("variance","co-variance","beta","mean","std-deviation"))
+            
+        st.write("####")
+        
+        st.subheader("Choose one of the following ratios below:")
+        
+        ratio_choice = st.selectbox("",("variance","co-variance","beta","mean","std-deviation"),label_visibility="hidden")
         st.write("You've selected the following ratio - ",ratio_choice)
 
         if ratio_choice == "variance":
