@@ -37,6 +37,7 @@ local_css("./style/style.css")
 # Title
 with st.container():
     st.title("Dashboards")
+    st.write("Select from the different time periods to highlight specific financial ratios of certain stocks/ETFs")
     st.write("---")
 
 # Evaluation section
@@ -229,7 +230,7 @@ with st.container():
     #CLI OPTIONS    
             
         # 2 columns section:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([2, 3])
         with col1:
             start_date=""
             end_date=""
@@ -252,7 +253,7 @@ with st.container():
 # Select options from dropdown menu        
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([2, 3])
         with col1:
             st.write("###")       
             st.subheader("Select from the following options from the dropdown menu below:")
@@ -327,7 +328,7 @@ with st.container():
 # Choose a financial ratio from dropdown menu        
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([2, 3])
         with col1:           
             st.write("###")
             st.subheader("Choose one of the following ratios below:")
