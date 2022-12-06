@@ -332,3 +332,10 @@ with st.container():
             st.dataframe(std_df)
         else:
             st.write(f'User choice is not valid')
+            
+
+
+
+# You can also use "with" notation:
+with col1:
+    st.radio('Select one:', [1, 2])            
