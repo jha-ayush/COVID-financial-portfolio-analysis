@@ -222,120 +222,135 @@ with st.container():
             beta_dict[tk] = float(covar_df.iloc[0,idx])/SPY_var
         return pd.DataFrame(beta_dict, index=[0])         
 
-    #Begin streamlit functionality
+#Begin streamlit functionality
+# Select a time-period section
+with st.container():
     if __name__ =="__main__":
     #CLI OPTIONS    
-        start_date=""
-        end_date=""
-        st.subheader("Select a time-period:")
-        user_choice_period = st.radio("",("pre-pandemic","pandemic","post-pandemic"),label_visibility="hidden")
-
-        if user_choice_period == "pre-pandemic":
-            start_date = "2017-03-01"
-            end_date = "2020-02-29"
-        elif user_choice_period == "pandemic":       
-            start_date = "2020-03-01"
-            end_date = "2021-02-28"
-        elif user_choice_period == "post-pandemic":
-            start_date = "2021-03-01"
-            end_date = "2022-03-01"
-        else:
-            st.caption('Period is not valid.')
             
-        st.write("###")       
-        st.subheader("Select from the following options from the dropdown menu below:")
+        # 2 columns section:
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            start_date=""
+            end_date=""
+            st.subheader("Select a time-period:")
+            user_choice_period = st.radio("",("pre-pandemic","pandemic","post-pandemic"),label_visibility="hidden")
+
+            if user_choice_period == "pre-pandemic":
+                start_date = "2017-03-01"
+                end_date = "2020-02-29"
+            elif user_choice_period == "pandemic":       
+                start_date = "2020-03-01"
+                end_date = "2021-02-28"
+            elif user_choice_period == "post-pandemic":
+                start_date = "2021-03-01"
+                end_date = "2022-03-01"
+            else:
+                st.caption('Period is not valid.')
+        with col2: st.empty()
+
+# Select options from dropdown menu        
+with st.container():
+        # 2 columns section:
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.write("###")       
+            st.subheader("Select from the following options from the dropdown menu below:")
         
-        user_choice_question = st.selectbox(
-                                "",
-        ("Option 1: Which stock(s) performed well?",
-         "Option 2: Which ETF(s) performed well?",
-         "Option 3: Which ticker(s) performed better than SPY?",
-         "Option 4: Which stock(s) performed inversely?"
-         ,"Option 5: Which ETF(s) performed inversely?"),
-            label_visibility="hidden")
+            user_choice_question = st.selectbox(
+                                        "",
+                ("Option 1: Which stock(s) performed well?",
+                 "Option 2: Which ETF(s) performed well?",
+                 "Option 3: Which ticker(s) performed better than SPY?",
+                 "Option 4: Which stock(s) performed inversely?"
+                 ,"Option 5: Which ETF(s) performed inversely?"),
+                    label_visibility="hidden")
 
-        st.write("You've selected the following - ", user_choice_question)
+            st.write("You've selected the following - ", user_choice_question)
 
-    #Ticker List    
-        ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
-        ticker_type_list=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
-        POLYGON_API_KEY = 'JQfBpF3NpcYjuBdMiXeUr6q54XafY_pQ'
+        #Ticker List    
+            ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
+            ticker_type_list=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
+            POLYGON_API_KEY = 'JQfBpF3NpcYjuBdMiXeUr6q54XafY_pQ'
 
-    #All Ticker Data    
-        all_data_df = date_ranges(start_date,end_date,ticker_list)
-        #display(all_data_df)
+        #All Ticker Data    
+            all_data_df = date_ranges(start_date,end_date,ticker_list)
+            #display(all_data_df)
 
-    #List of Data Frames for Individual Tickers     
-        ticker_df_list = []
-        for tk in ticker_list:
-            ticker_df_list.append(get_ticker_data_df(all_data_df,tk))
+        #List of Data Frames for Individual Tickers     
+            ticker_df_list = []
+            for tk in ticker_list:
+                ticker_df_list.append(get_ticker_data_df(all_data_df,tk))
 
-        if len(ticker_df_list) != len(ticker_list):
-            print("ticker df list length not matching ticker list")
-
-
-    #Concatenated Data             
-        my_concat_df = create_concat_df(ticker_df_list,ticker_list)
-        #display(my_concat_df)
-
-    #STD Data
-        std_df = create_std_df(my_concat_df, ticker_type_list)
-        #st.dataframe(std_df)
-
-    #Mean Data    
-        my_mean_df = create_mean_df(my_concat_df,ticker_type_list)
-        #st.dataframe(my_mean_df)
-
-    #SQL Engine    
-        mysqlengine= create_sql_table(my_mean_df)
+            if len(ticker_df_list) != len(ticker_list):
+                print("ticker df list length not matching ticker list")
 
 
-     #CLI OPTIONS   
-        if user_choice_question =="Option 1: Which stock(s) performed well?":
-            mytopstock = get_ticker_string(top_stock(mysqlengine))
-            st.success(f'{mytopstock} is the top performing stock', icon="✅")
-        elif user_choice_question =="Option 2: Which ETF(s) performed well?":
-            mytopetf = get_ticker_string(top_etf(mysqlengine))
-            st.success(f'{mytopetf} is the top performing ETF', icon="✅")
-        elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
-            surspy=sur_spy(mysqlengine)
-            st.write('Ticker(s) that performed better than SPY is/are:', surspy)
-        elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
-            mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
-            st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
-        elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
-            mybottometf = get_ticker_string(bottom_etf(mysqlengine))
-            st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
-        else:
-             st.success(f'User choice is not valid', icon="✅")
+        #Concatenated Data             
+            my_concat_df = create_concat_df(ticker_df_list,ticker_list)
+            #display(my_concat_df)
 
-            
-        st.write("###")
-        st.subheader("Choose one of the following ratios below:")
+        #STD Data
+            std_df = create_std_df(my_concat_df, ticker_type_list)
+            #st.dataframe(std_df)
+
+        #Mean Data    
+            my_mean_df = create_mean_df(my_concat_df,ticker_type_list)
+            #st.dataframe(my_mean_df)
+
+        #SQL Engine    
+            mysqlengine= create_sql_table(my_mean_df)
+
+
+         #CLI OPTIONS   
+            if user_choice_question =="Option 1: Which stock(s) performed well?":
+                mytopstock = get_ticker_string(top_stock(mysqlengine))
+                st.success(f'{mytopstock} is the top performing stock', icon="✅")
+            elif user_choice_question =="Option 2: Which ETF(s) performed well?":
+                mytopetf = get_ticker_string(top_etf(mysqlengine))
+                st.success(f'{mytopetf} is the top performing ETF', icon="✅")
+            elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
+                surspy=sur_spy(mysqlengine)
+                st.write('Ticker(s) that performed better than SPY is/are:', surspy)
+            elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
+                mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
+                st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
+            elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
+                mybottometf = get_ticker_string(bottom_etf(mysqlengine))
+                st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
+            else:
+                 st.success(f'User choice is not valid', icon="✅")
+            with col2: st.empty()
         
-        ratio_choice = st.selectbox("",("variance","co-variance","beta","mean","std-deviation"),label_visibility="hidden")
-        st.write("You've selected the following ratio - ",ratio_choice)
+        
+        
+# Choose a financial ratio from dropdown menu        
+with st.container():
+        # 2 columns section:
+        col1, col2 = st.columns([3, 1])
+        with col1:           
+            st.write("###")
+            st.subheader("Choose one of the following ratios below:")
+        
+            ratio_choice = st.selectbox("",("variance","co-variance","beta","mean","std-deviation","omega ratio"),label_visibility="hidden")
+            st.write("You've selected the following ratio - ",ratio_choice)
 
-        if ratio_choice == "variance":
-            var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
-            st.write('Variance values are given below:',var_df)
-        elif ratio_choice == "co-variance":
-            covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
-            st.write('Co-variance values are given below:',covar_df)
-        elif ratio_choice == "beta":
-            covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
-            beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
-            st.write('Beta values are given below:',beta_df)
-        elif ratio_choice == "mean":
-            st.dataframe(my_mean_df)
-        elif ratio_choice == "std-deviation":
-            st.dataframe(std_df)
-        else:
-            st.write(f'User choice is not valid')
-            
-
-
-
-# You can also use "with" notation:
-with col1:
-    st.radio('Select one:', [1, 2])            
+            if ratio_choice == "variance":
+                var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
+                st.write('Variance values are given below:',var_df)
+            elif ratio_choice == "co-variance":
+                covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
+                st.write('Co-variance values are given below:',covar_df)
+            elif ratio_choice == "beta":
+                covar_df = get_covariance_per_ticker(ticker_df_list,ticker_list)
+                beta_df = get_beta_per_ticker(covar_df,ticker_df_list,ticker_list)
+                st.write('Beta values are given below:',beta_df)
+            elif ratio_choice == "mean":
+                st.dataframe(my_mean_df)
+            elif ratio_choice == "std-deviation":
+                st.dataframe(std_df)
+            elif ratio_choice == "omega ratio":
+                st.empty()
+            else:
+                st.write(f'User choice is not valid')
+                       
