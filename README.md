@@ -3,7 +3,7 @@
 
 > Executive [summary](https://github.com/jha-ayush/finance_portfolio_analyzer/blob/main/exec_summary.md "Executive summary")
 
-> Web app [link](https://jha-ayush-finance-portfolio-analyzer-home-dnt6yf.streamlit.app/ "Portfolio analyzer web app")
+> Streamlit web [app](https://jha-ayush-finance-portfolio-analyzer-home-dnt6yf.streamlit.app/ "Portfolio analyzer web app")
 
 > Project [presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing "Portfolio Analyzer")
 
