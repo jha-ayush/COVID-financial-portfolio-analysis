@@ -7,6 +7,13 @@
 
 > Project [presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing "Portfolio Analyzer")
 
+### Launch app on localhost:
+- `git clone` main [branch](https://github.com/jha-ayush/finance_portfolio_analyzer "Main Branch")
+- Navigate to the local directory in Terminal
+- Switch to `dev` environment `conda activate dev`
+- `pip install -r requirements.txt`
+- Navigate to `functionality_files` directory in Terminal
+- Enter `streamlit run Home.py` to launch localhost app
 
 ### Team members
 - **Christine Pham**  -  `cpham35`
