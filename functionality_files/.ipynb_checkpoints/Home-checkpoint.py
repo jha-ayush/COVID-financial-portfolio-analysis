@@ -50,11 +50,7 @@ with st.container():
             """
             ## Welcome to the COVID financial portfolio analyzer
 
-            The web app analyzes stocks & ETFs against the S&P500 index using [polygon.io](https://polygon.io/stocks) APIs
-
-            We used [streamlit](https://docs.streamlit.io) python package to deploy the web app :computer:
-
-            GIF provided via json formatting by [LottieFiles](https://lottiefiles.com/)
+            This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)
             """
      with right_column:
         st_lottie(lottiefiles_gif,height="70",key="finance")
