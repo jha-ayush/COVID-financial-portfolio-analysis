@@ -5,13 +5,13 @@
 # base="dark"
 
 # Primary accent for interactive elements
-primaryColor = '#D89A30'
+primaryColor = '#2B2B2B'
 
 # Background color for the main content area
-backgroundColor = '#306ED8'
+backgroundColor = '#0E43A8'
 
 # Background color for sidebar and most interactive widgets
-secondaryBackgroundColor = '#313C5D'
+secondaryBackgroundColor = '#78787D'
 
 # Color used for almost all text
 textColor = '#FAFAFA'
