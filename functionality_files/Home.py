@@ -50,7 +50,7 @@ with st.container():
             """
             ## Welcome to the COVID financial portfolio analyzer
 
-            We have created a portfolio analyzer that analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)
+            This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)
             """
      with right_column:
         st_lottie(lottiefiles_gif,height="70",key="finance")
