@@ -55,11 +55,8 @@ with st.container():
             lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
             st_lottie(lottiefiles_gif,height="70",key="finance")
         with col2:           
-            """
-             ## Welcome to the COVID financial portfolio analyzer
-
-            This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)
-            """    
+            st.header("Welcome to the COVID financial portfolio analyzer")
+            st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")   
             
 
 # Evaluation section
@@ -387,12 +384,12 @@ with st.container():
             
             st.write("---")
             # Display data table
-            st.subheader("All data DF")
+            st.subheader("'All data' dataframe")
             st.write(all_data.tail())
             #plot data
             # st.line_chart(all_data)
             # Bollinger bands - trendlines plotted between two standard deviations
-            st.header(f"All data Bollinger bands")
+            st.subheader(f"'All data' Bollinger bands")
             qf=cf.QuantFig(all_data,title='First Quant Figure',legend='top',name='GS')
             qf.add_bollinger_bands()
             fig = qf.iplot(asFigure=True)
