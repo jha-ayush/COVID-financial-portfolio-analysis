@@ -47,20 +47,20 @@ def local_css(file_name):
 local_css("./style/style.css")        
     
 
-# 2 columns - title vs gif
 with st.container():
-     left_column,right_column=st.columns(2)
-     with left_column:
-          # Load assets 
+        # 2 columns section:
+        col1, col2 = st.columns([1, 4])
+        with col1:           
+            # Load assets
             lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
+            st_lottie(lottiefiles_gif,height="70",key="finance")
+        with col2:           
             """
-            ## Welcome to the COVID financial portfolio analyzer
+             ## Welcome to the COVID financial portfolio analyzer
 
             This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)
-            """
-     with right_column:
-        st_lottie(lottiefiles_gif,height="70",key="finance")
-
+            """    
+            
 
 # Evaluation section
 with st.container():    
@@ -252,7 +252,7 @@ with st.container():
     #CLI OPTIONS    
             
         # 2 columns section:
-        col1, col2 = st.columns([2, 3])
+        col1, col2 = st.columns([4, 1])
         with col1:
             start_date=""
             end_date=""
@@ -414,7 +414,7 @@ with st.container():
         <button type="submit">Send</button>
     </form>
     """
-
+# Display form
 with st.container():    
     left_column, mid_column, right_column = st.columns(3)
     with left_column:
