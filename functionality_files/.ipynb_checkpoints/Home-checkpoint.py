@@ -56,9 +56,10 @@ with st.container():
             st_lottie(lottiefiles_gif,height="70",key="finance")
         with col2:           
             st.header("Welcome to the COVID financial portfolio analyzer")
-            st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")   
-            
+            st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
 
+st.write("---")
+            
 # Evaluation section
 with st.container():    
     def get_prices(start_date,end_date,universe):
@@ -253,8 +254,6 @@ with st.container():
         with col1:
             start_date=""
             end_date=""
-            st.write("###") 
-            st.write("###")
             #Ticker List    
             ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
             # ticker_list=pd.read_csv(Path("../Resources/ticker_symbols.csv"))
@@ -286,7 +285,7 @@ with st.container():
         col1, col2 = st.columns([4, 1])
         with col1:
             st.write("###") 
-            st.write("###")
+
             user_choice_question = st.selectbox(
                                         "Select an action",
                 ("Option 1: Which stock(s) performed well?",
