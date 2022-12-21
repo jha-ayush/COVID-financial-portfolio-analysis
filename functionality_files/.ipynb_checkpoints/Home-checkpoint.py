@@ -282,10 +282,8 @@ with st.container():
 # Select options from dropdown menu        
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([4, 1])
+        col1, col2 = st.columns([3, 2])
         with col1:
-            st.write("###") 
-
             user_choice_question = st.selectbox(
                                         "Select an action",
                 ("Option 1: Which stock(s) performed well?",
@@ -333,22 +331,27 @@ with st.container():
                 mytopstock = get_ticker_string(top_stock(mysqlengine))
                 st.success(f'{mytopstock} is the top performing stock', icon="✅")
                 st.write("Insert 'Top Stock' dataframe")
+                st.write("Insert 'Top Stock' plot")
             elif user_choice_question =="Option 2: Which ETF(s) performed well?":
                 mytopetf = get_ticker_string(top_etf(mysqlengine))
                 st.success(f'{mytopetf} is the top performing ETF', icon="✅")
                 st.write("Insert 'Top ETF' dataframe")
+                st.write("Insert 'Top ETF' plot")
             elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
                 surspy=sur_spy(mysqlengine)
                 st.write('Ticker(s) that performed better than SPY is/are:', surspy)
                 st.write("Insert 'Ticker(s) that performed better than SPY' dataframe")
+                st.write("Insert 'Ticker(s) that performed better than SPY' plot")
             elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
                 mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
                 st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
                 st.write("Insert 'Stock performed better than SPY' dataframe")
+                st.write("Insert 'Stock performed better than SPY' plot")
             elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
                 mybottometf = get_ticker_string(bottom_etf(mysqlengine))
                 st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
                 st.write("Insert 'ETF performed better than SPY' dataframe")
+                st.write("Insert 'ETF performed better than SPY' plot")
             else:
                  st.success(f'User choice is not valid', icon="❌")
             with col2: st.empty()
@@ -356,7 +359,7 @@ with st.container():
 # Choose a financial ratio from dropdown menu        
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([4, 1])
+        col1, col2 = st.columns([3, 2])
         with col1:           
             st.write("###") 
             st.write("###")
@@ -380,7 +383,9 @@ with st.container():
                 st.empty()
             else:
                 st.write(f'User choice is not valid')      
-            
+
+# Data table & visualizations
+with st.container():            
             st.write("---")
             # Display data table
             st.subheader("'All data' dataframe")
