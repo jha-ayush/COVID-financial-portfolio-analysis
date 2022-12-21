@@ -25,9 +25,6 @@ img_rth_pan_tearsheet=Image.open("../Images/rth_pan_tearsheet.png")
 img_xle_pan_tearsheet=Image.open("../Images/xle_pan_tearsheet.png")
 img_xom_pan_tearsheet=Image.open("../Images/xom_pan_tearsheet.png")
 img_spy_pan_tearsheet=Image.open("../Images/spy_pan_tearsheet.png")
-
-# Display balloons
-st.balloons()
         
 # Tearsheets
 with st.container():
