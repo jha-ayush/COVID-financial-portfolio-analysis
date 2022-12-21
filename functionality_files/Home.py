@@ -299,8 +299,6 @@ with st.container():
                  ,"Option 5: Which ETF(s) performed inversely?"),
                     label_visibility="visible")
 
-            st.write("You've selected the following - ", user_choice_question)
-
 
         #All Ticker Data    
             all_data_df = date_ranges(start_date,end_date,ticker_list)
@@ -338,15 +336,15 @@ with st.container():
             if user_choice_question =="Option 1: Which stock(s) performed well?":
                 mytopstock = get_ticker_string(top_stock(mysqlengine))
                 st.success(f'{mytopstock} is the top performing stock', icon="✅")
-                st.write("Insert Top Stock dataframe")
+                st.write("Insert 'Top Stock' dataframe")
             elif user_choice_question =="Option 2: Which ETF(s) performed well?":
                 mytopetf = get_ticker_string(top_etf(mysqlengine))
                 st.success(f'{mytopetf} is the top performing ETF', icon="✅")
-                st.write("Insert Top ETF dataframe")
+                st.write("Insert 'Top ETF' dataframe")
             elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
                 surspy=sur_spy(mysqlengine)
                 st.write('Ticker(s) that performed better than SPY is/are:', surspy)
-                st.write("Insert ''Ticker(s) that performed better than SPY' dataframe")
+                st.write("Insert 'Ticker(s) that performed better than SPY' dataframe")
             elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
                 mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
                 st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
@@ -358,19 +356,6 @@ with st.container():
             else:
                  st.success(f'User choice is not valid', icon="❌")
             with col2: st.empty()
-            
-            # Display data table
-            st.subheader("All data DF")
-            st.write(all_data.tail())
-            #plot data
-            # st.line_chart(all_data)
-            # Bollinger bands - trendlines plotted between two standard deviations
-            st.header(f"All data Bollinger bands")
-            qf=cf.QuantFig(all_data,title='First Quant Figure',legend='top',name='GS')
-            qf.add_bollinger_bands()
-            fig = qf.iplot(asFigure=True)
-            st.plotly_chart(fig)
-            
         
 # Choose a financial ratio from dropdown menu        
 with st.container():
@@ -380,7 +365,6 @@ with st.container():
             st.write("###") 
             st.write("###")
             ratio_choice = st.selectbox("Choose from one of the financial ratios below",("variance","co-variance","beta","mean","std-deviation","omega ratio"),label_visibility="visible")
-            st.write("You've selected the following ratio - ",ratio_choice)
 
             if ratio_choice == "variance":
                 var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
@@ -400,7 +384,20 @@ with st.container():
                 st.empty()
             else:
                 st.write(f'User choice is not valid')      
-        
+            
+            st.write("---")
+            # Display data table
+            st.subheader("All data DF")
+            st.write(all_data.tail())
+            #plot data
+            # st.line_chart(all_data)
+            # Bollinger bands - trendlines plotted between two standard deviations
+            st.header(f"All data Bollinger bands")
+            qf=cf.QuantFig(all_data,title='First Quant Figure',legend='top',name='GS')
+            qf.add_bollinger_bands()
+            fig = qf.iplot(asFigure=True)
+            st.plotly_chart(fig)
+
 # Contact Form
 with st.container():
     st.write("---")
@@ -422,10 +419,9 @@ with st.container():
     left_column, mid_column, right_column = st.columns(3)
     with left_column:
         st.markdown(contact_form, unsafe_allow_html=True)
+        # Display balloons
+        st.balloons()
     with mid_column:
         st.empty()
     with right_column:
         st.empty()
-
-# Display balloons
-st.balloons()
