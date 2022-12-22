@@ -32,32 +32,38 @@ import datetime
 # Set page configurations - ALWAYS at the top
 st.set_page_config(page_title="COVID portfolio analyzer",page_icon=":bar_chart:",layout="wide")
 
+# functions
+
 # Create a function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
 def load_lottieurl(url):
-    r=requests.get(url)
-    if r.status_code !=200:
+    """
+    Loads the json data for a Lottie animation using the given URL.
+    Returns None if there was an error.
+    """
+    r = requests.get(url)
+    if r.status_code != 200:
         return None
     return r.json()
 
 # Use local style.css file
 def local_css(file_name):
+    """
+    Use a local style.css file.
+    """
     with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
-        
-local_css("./style/style.css")        
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)        
     
-
+# wrap content in a streamlit container
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([1, 4])
+        col1, col2 = st.columns([4, 1])
         with col1:           
-            # Load assets
-            lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
-            st_lottie(lottiefiles_gif,height="70",key="finance")
-        with col2:           
+            # Load title/info
             st.header("Welcome to the COVID financial portfolio analyzer")
             st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
-
+        with col2:
+            # Load asset(s)
+            lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
 st.write("---")
             
 # Evaluation section
