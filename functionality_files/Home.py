@@ -127,7 +127,7 @@ def create_std_df(concat_df,ticker_type_list):
 #Variance Function
 def get_var(concat_df,column):
     variance=concat_df[column].var()
-    return vaariance 
+    return variance 
 
 #Database Connection
 def create_connection():
