@@ -19,49 +19,53 @@ warnings.filterwarnings("ignore")
 from pytz import timezone
 import pyfolio as pf
 from IPython.display import display
-import matplotlib
+import matplotlib.pyplot as plt
+from plotly import graph_objs as go
+import hvplot.pandas
 import re
 from streamlit_lottie import st_lottie
+# import cufflinks for bollinger bands
+import cufflinks as cf
+import datetime
+
 
 # Set page configurations - ALWAYS at the top
 st.set_page_config(page_title="COVID portfolio analyzer",page_icon=":bar_chart:",layout="wide")
 
+# functions
+
 # Create a function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
 def load_lottieurl(url):
-    r=requests.get(url)
-    if r.status_code !=200:
+    """
+    Loads the json data for a Lottie animation using the given URL.
+    Returns None if there was an error.
+    """
+    r = requests.get(url)
+    if r.status_code != 200:
         return None
     return r.json()
 
 # Use local style.css file
 def local_css(file_name):
+    """
+    Use a local style.css file.
+    """
     with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html=True)
-        
-local_css("./style/style.css")        
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)        
     
-
-# 2 columns - title vs gif
+# wrap content in a streamlit container
 with st.container():
-     left_column,right_column=st.columns(2)
-     with left_column:
-          # Load assets 
+        # 2 columns section:
+        col1, col2 = st.columns([4, 1])
+        with col1:           
+            # Load title/info
+            st.header("Welcome to the COVID financial portfolio analyzer")
+            st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
+        with col2:
+            # Load asset(s)
             lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
-            """
-            ## Welcome to the COVID financial portfolio analyzer
-
-            This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)
-            """
-     with right_column:
-        st_lottie(lottiefiles_gif,height="70",key="finance")
-
 st.write("---")
-      
-# Dashboard Title
-with st.container():
-    st.title("Dashboards")
-    st.write("Select from the different time periods to highlight specific financial ratios of certain stocks/ETFs")
-
+            
 # Evaluation section
 with st.container():    
     def get_prices(start_date,end_date,universe):
@@ -225,7 +229,7 @@ with st.container():
         # get dataframe for SPY based on index
         SPY_df = ticker_df_list[spy_idx].reset_index(level = 1, drop= True)
         for idx in range(len(ticker_list)):
-            covar_dict[ticker_list[idx]]=ticker_df_list[idx].reset_index(level = 1, drop= True)['daily_returns'].cov(SPY_df['daily_returns'])
+            covar_dict[ticker_list[idx]]=ticker_df_list[idx].reset_index(level = 1, drop=True)['daily_returns'].cov(SPY_df['daily_returns'])
         return pd.DataFrame(covar_dict, index=[0])
 
     #Beta Function       
@@ -252,12 +256,21 @@ with st.container():
     #CLI OPTIONS    
             
         # 2 columns section:
-        col1, col2 = st.columns([2, 3])
+        col1, col2 = st.columns([4, 1])
         with col1:
             start_date=""
             end_date=""
-            st.subheader("Select a time-period:")
-            user_choice_period = st.radio("",("pre-pandemic","pandemic","post-pandemic"),label_visibility="hidden")
+            #Ticker List    
+            ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
+            # ticker_list=pd.read_csv(Path("../Resources/ticker_symbols.csv"))
+            # add ticker to streamlit sidebar as a selectbox
+            # ticker_symbol=st.sidebar.selectbox("Select a ticker from the dropdown menu",ticker_list)
+            # ticker_data=yf.Ticker(ticker_symbol)
+            ticker_type_list=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
+            POLYGON_API_KEY = 'JQfBpF3NpcYjuBdMiXeUr6q54XafY_pQ'
+            
+            st.write("###")
+            user_choice_period = st.sidebar.selectbox("Select a time-period",("pre-pandemic","pandemic","post-pandemic"),label_visibility="visible")
 
             if user_choice_period == "pre-pandemic":
                 start_date = "2017-03-01"
@@ -275,26 +288,17 @@ with st.container():
 # Select options from dropdown menu        
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([2, 3])
+        col1, col2 = st.columns([3, 2])
         with col1:
-            st.write("###")       
-            st.subheader("Select from the following options from the dropdown menu below:")
-        
             user_choice_question = st.selectbox(
-                                        "",
+                                        "Select an action",
                 ("Option 1: Which stock(s) performed well?",
                  "Option 2: Which ETF(s) performed well?",
                  "Option 3: Which ticker(s) performed better than SPY?",
                  "Option 4: Which stock(s) performed inversely?"
                  ,"Option 5: Which ETF(s) performed inversely?"),
-                    label_visibility="hidden")
+                    label_visibility="visible")
 
-            st.write("You've selected the following - ", user_choice_question)
-
-        #Ticker List    
-            ticker_list = ["AMZN", "RTH", "AMT", "IYR", "XOM", "XLE", "SPY"]
-            ticker_type_list=['Stock','ETF','Stock','ETF','Stock','ETF','Index']
-            POLYGON_API_KEY = 'JQfBpF3NpcYjuBdMiXeUr6q54XafY_pQ'
 
         #All Ticker Data    
             all_data_df = date_ranges(start_date,end_date,ticker_list)
@@ -325,36 +329,47 @@ with st.container():
             mysqlengine= create_sql_table(my_mean_df)
 
 
-         #CLI OPTIONS   
+         #CLI OPTIONS 
+            # Display table - Store data in a variable
+            all_data = get_prices(start_date=start_date, end_date=end_date, universe=ticker_list)
+            
             if user_choice_question =="Option 1: Which stock(s) performed well?":
                 mytopstock = get_ticker_string(top_stock(mysqlengine))
                 st.success(f'{mytopstock} is the top performing stock', icon="✅")
+                st.write("Insert 'Top Stock' dataframe")
+                st.write("Insert 'Top Stock' plot")
             elif user_choice_question =="Option 2: Which ETF(s) performed well?":
                 mytopetf = get_ticker_string(top_etf(mysqlengine))
                 st.success(f'{mytopetf} is the top performing ETF', icon="✅")
+                st.write("Insert 'Top ETF' dataframe")
+                st.write("Insert 'Top ETF' plot")
             elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
                 surspy=sur_spy(mysqlengine)
                 st.write('Ticker(s) that performed better than SPY is/are:', surspy)
+                st.write("Insert 'Ticker(s) that performed better than SPY' dataframe")
+                st.write("Insert 'Ticker(s) that performed better than SPY' plot")
             elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
                 mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
                 st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
+                st.write("Insert 'Stock performed better than SPY' dataframe")
+                st.write("Insert 'Stock performed better than SPY' plot")
             elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
                 mybottometf = get_ticker_string(bottom_etf(mysqlengine))
                 st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
+                st.write("Insert 'ETF performed better than SPY' dataframe")
+                st.write("Insert 'ETF performed better than SPY' plot")
             else:
-                 st.success(f'User choice is not valid', icon="✅")
+                 st.success(f'User choice is not valid', icon="❌")
             with col2: st.empty()
         
 # Choose a financial ratio from dropdown menu        
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([2, 3])
+        col1, col2 = st.columns([3, 2])
         with col1:           
+            st.write("###") 
             st.write("###")
-            st.subheader("Choose one of the following ratios below:")
-        
-            ratio_choice = st.selectbox("",("variance","co-variance","beta","mean","std-deviation","omega ratio"),label_visibility="hidden")
-            st.write("You've selected the following ratio - ",ratio_choice)
+            ratio_choice = st.selectbox("Choose from one of the financial ratios below",("variance","co-variance","beta","mean","std-deviation","omega ratio"),label_visibility="visible")
 
             if ratio_choice == "variance":
                 var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
@@ -374,7 +389,22 @@ with st.container():
                 st.empty()
             else:
                 st.write(f'User choice is not valid')      
-        
+
+# Data table & visualizations
+with st.container():            
+            st.write("---")
+            # Display data table
+            st.subheader("'All data' dataframe")
+            st.write(all_data.tail())
+            #plot data
+            # st.line_chart(all_data)
+            # Bollinger bands - trendlines plotted between two standard deviations
+            st.subheader(f"'All data' Bollinger bands")
+            qf=cf.QuantFig(all_data,title='First Quant Figure',legend='top',name='GS')
+            qf.add_bollinger_bands()
+            fig = qf.iplot(asFigure=True)
+            st.plotly_chart(fig)
+
 # Contact Form
 with st.container():
     st.write("---")
@@ -391,13 +421,14 @@ with st.container():
         <button type="submit">Send</button>
     </form>
     """
-
+# Display form
 with st.container():    
     left_column, mid_column, right_column = st.columns(3)
     with left_column:
         st.markdown(contact_form, unsafe_allow_html=True)
+        # Display balloons
+        st.balloons()
     with mid_column:
         st.empty()
     with right_column:
         st.empty()
-      
