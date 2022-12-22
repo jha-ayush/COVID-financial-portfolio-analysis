@@ -51,24 +51,10 @@ def local_css(file_name):
     Use a local style.css file.
     """
     with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)        
-    
-# wrap content in a streamlit container
-with st.container():
-        # 2 columns section:
-        col1, col2 = st.columns([4, 1])
-        with col1:           
-            # Load title/info
-            st.header("Welcome to the COVID financial portfolio analyzer")
-            st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
-        with col2:
-            # Load asset(s)
-            lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
-st.write("---")
-            
-# Evaluation section
-with st.container():    
-    def get_prices(start_date,end_date,universe):
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True) 
+        
+# functions
+def get_prices(start_date,end_date,universe):
         data = pd.DataFrame()
         for t in tqdm(universe):
             try:
@@ -106,148 +92,164 @@ with st.container():
         return data
 
 
-    def date_ranges(start_date,end_date,ticker_list):
-        all_data = get_prices(start_date=start_date, end_date=end_date, universe=ticker_list)    
-        return all_data
+def date_ranges(start_date,end_date,ticker_list):
+    all_data = get_prices(start_date=start_date, end_date=end_date, universe=ticker_list)    
+    return all_data
 
-    def get_ticker_data_df(all_data, ticker_symbol):
-        idx = pd.IndexSlice
-        daily_returns_df = all_data.loc[idx[:,ticker_symbol],['daily_returns']]
-        return daily_returns_df
+def get_ticker_data_df(all_data, ticker_symbol):
+    idx = pd.IndexSlice
+    daily_returns_df = all_data.loc[idx[:,ticker_symbol],['daily_returns']]
+    return daily_returns_df
 
-    def create_concat_df(ticker_df_list,ticker_list):
-        concat_df = pd.concat(ticker_df_list,axis=1, keys=ticker_list)
-        return concat_df    
+def create_concat_df(ticker_df_list,ticker_list):
+    concat_df = pd.concat(ticker_df_list,axis=1, keys=ticker_list)
+    return concat_df    
 
-    #Mean Function
-    def create_mean_df(concat_df,ticker_type_list):
-        mean_df=pd.DataFrame(concat_df.mean())
-        mean_df=mean_df.reset_index()
-        del mean_df['level_1']
-        mean_df.columns=['Ticker','Mean']
-        mean_df['Ticker_type']=ticker_type_list
-        return mean_df
-
-
-    #Standard Deviation Function
-    def create_std_df(concat_df,ticker_type_list):
-        std_df=pd.DataFrame(concat_df.std())
-        std_df=std_df.reset_index()
-        del std_df['level_1']
-        std_df.columns=['Ticker','STD']
-        std_df['Ticker_type']=ticker_type_list
-        return std_df
-
-    #Variance Function
-    def get_var(concat_df,column):
-        variance=concat_df[column].var()
-        return vaariance 
-
-    #Database Connection
-    def create_connection():
-        database_connection_string = 'sqlite:///'
-        engine = sqlalchemy.create_engine(database_connection_string)
-        #print(engine.table_names())
-        return engine
-
-    #SQL Table Creation
-    def create_sql_table(mean_df):
-        engine = create_connection()
-        mean_df.to_sql('portfolio_mean',engine)
-        return engine
-
-     #Top Stock Function   
-    def top_stock(engine):
-        sel_max_mean="""select Ticker from portfolio_mean where mean= (select max(Mean) from portfolio_mean where Ticker_type='Stock')"""
-        max_mean=list(engine.execute(sel_max_mean))
-        if len(max_mean)==1:
-            return str(max_mean[0])
-        else:
-            print("Check code")
-
-    #Bottom Stock Function
-    def bottom_stock(engine):
-        sel_min_mean="""select Ticker from portfolio_mean where mean= (select min(mean) from portfolio_mean where Ticker_type='Stock')"""
-        min_mean=list(engine.execute(sel_min_mean))
-        if len(min_mean)==1:
-            return str(min_mean[0])
-        else:
-            print("Check code")
+#Mean Function
+def create_mean_df(concat_df,ticker_type_list):
+    mean_df=pd.DataFrame(concat_df.mean())
+    mean_df=mean_df.reset_index()
+    del mean_df['level_1']
+    mean_df.columns=['Ticker','Mean']
+    mean_df['Ticker_type']=ticker_type_list
+    return mean_df
 
 
-    #Top ETF Function        
-    def top_etf(engine):
-        sel_port_max_mean="""select Ticker from portfolio_mean where mean= (select max(Mean) from portfolio_mean where Ticker_type='ETF')"""
-        max_mean=list(engine.execute(sel_port_max_mean))
-        if len(max_mean)==1:
-            return str(max_mean[0])
-        else:
-            print("Check code")
+#Standard Deviation Function
+def create_std_df(concat_df,ticker_type_list):
+    std_df=pd.DataFrame(concat_df.std())
+    std_df=std_df.reset_index()
+    del std_df['level_1']
+    std_df.columns=['Ticker','STD']
+    std_df['Ticker_type']=ticker_type_list
+    return std_df
+
+#Variance Function
+def get_var(concat_df,column):
+    variance=concat_df[column].var()
+    return vaariance 
+
+#Database Connection
+def create_connection():
+    database_connection_string = 'sqlite:///'
+    engine = sqlalchemy.create_engine(database_connection_string)
+    #print(engine.table_names())
+    return engine
+
+#SQL Table Creation
+def create_sql_table(mean_df):
+    engine = create_connection()
+    mean_df.to_sql('portfolio_mean',engine)
+    return engine
+
+ #Top Stock Function   
+def top_stock(engine):
+    sel_max_mean="""select Ticker from portfolio_mean where mean= (select max(Mean) from portfolio_mean where Ticker_type='Stock')"""
+    max_mean=list(engine.execute(sel_max_mean))
+    if len(max_mean)==1:
+        return str(max_mean[0])
+    else:
+        print("Check code")
+
+#Bottom Stock Function
+def bottom_stock(engine):
+    sel_min_mean="""select Ticker from portfolio_mean where mean= (select min(mean) from portfolio_mean where Ticker_type='Stock')"""
+    min_mean=list(engine.execute(sel_min_mean))
+    if len(min_mean)==1:
+        return str(min_mean[0])
+    else:
+        print("Check code")
 
 
-    #Bottom ETF Function        
-    def bottom_etf(engine):
-        sel_port_min_mean="""select Ticker from portfolio_mean where mean=(select min(mean) from portfolio_mean where Ticker_type='ETF')"""
-        min_mean=list(engine.execute(sel_port_min_mean))
-        if len(min_mean)==1:
-            return str(min_mean[0])
-        else:
-            print("Check code")
-
-    #Surpass SPY Function        
-    def sur_spy(engine):
-        sel_port_sur_spy="""select b.Ticker from portfolio_mean a, portfolio_mean b where a.Mean<b.Mean and a. Ticker='SPY'"""
-        sur_spy=list(engine.execute(sel_port_sur_spy))
-        return pd.DataFrame(sur_spy, columns = ["Best Performers"])
+#Top ETF Function        
+def top_etf(engine):
+    sel_port_max_mean="""select Ticker from portfolio_mean where mean= (select max(Mean) from portfolio_mean where Ticker_type='ETF')"""
+    max_mean=list(engine.execute(sel_port_max_mean))
+    if len(max_mean)==1:
+        return str(max_mean[0])
+    else:
+        print("Check code")
 
 
-    def get_ticker_string(str):
-        match = re.search(r'\(\'([A-Z]+)\',\)', str)
-        if match:
-            return match.group(1)
-        else:
-            print("RE pattern match failed. Found str : {str}")
+#Bottom ETF Function        
+def bottom_etf(engine):
+    sel_port_min_mean="""select Ticker from portfolio_mean where mean=(select min(mean) from portfolio_mean where Ticker_type='ETF')"""
+    min_mean=list(engine.execute(sel_port_min_mean))
+    if len(min_mean)==1:
+        return str(min_mean[0])
+    else:
+        print("Check code")
+
+#Surpass SPY Function        
+def sur_spy(engine):
+    sel_port_sur_spy="""select b.Ticker from portfolio_mean a, portfolio_mean b where a.Mean<b.Mean and a. Ticker='SPY'"""
+    sur_spy=list(engine.execute(sel_port_sur_spy))
+    return pd.DataFrame(sur_spy, columns = ["Best Performers"])
 
 
-    #Variance Function        
-    def get_variance_per_ticker(ticker_df_list,ticker_list):
-        var_dict = {} 
-        for idx in range(len(ticker_list)):
-            var_dict[ticker_list[idx]]=ticker_df_list[idx]['daily_returns'].var()
-        return pd.DataFrame(var_dict, index=[0])
+def get_ticker_string(str):
+    match = re.search(r'\(\'([A-Z]+)\',\)', str)
+    if match:
+        return match.group(1)
+    else:
+        print("RE pattern match failed. Found str : {str}")
 
-    #Covariance Function
-    def get_covariance_per_ticker(ticker_df_list,ticker_list):
-        covar_dict = {}
-        # Find index of SPY in ticker_list
-        try:
-            spy_idx=ticker_list.index("SPY")
-        except:
-            print("Cannot find SPY in ticker list. Cannot calculate Covariance based on SPY")
-            return
 
-        # get dataframe for SPY based on index
-        SPY_df = ticker_df_list[spy_idx].reset_index(level = 1, drop= True)
-        for idx in range(len(ticker_list)):
-            covar_dict[ticker_list[idx]]=ticker_df_list[idx].reset_index(level = 1, drop=True)['daily_returns'].cov(SPY_df['daily_returns'])
-        return pd.DataFrame(covar_dict, index=[0])
+#Variance Function        
+def get_variance_per_ticker(ticker_df_list,ticker_list):
+    var_dict = {} 
+    for idx in range(len(ticker_list)):
+        var_dict[ticker_list[idx]]=ticker_df_list[idx]['daily_returns'].var()
+    return pd.DataFrame(var_dict, index=[0])
 
-    #Beta Function       
-    def get_beta_per_ticker(covar_df,ticker_df_list,ticker_list):
-        beta_dict ={}
-        try:
-            spy_idx=ticker_list.index("SPY")
-        except:
-            print("Cannot find SPY in ticker list. Cannot calculate Covariance based on SPY")
-            return
+#Covariance Function
+def get_covariance_per_ticker(ticker_df_list,ticker_list):
+    covar_dict = {}
+    # Find index of SPY in ticker_list
+    try:
+        spy_idx=ticker_list.index("SPY")
+    except:
+        print("Cannot find SPY in ticker list. Cannot calculate Covariance based on SPY")
+        return
 
-        # get dataframe for SPY based on index
-        SPY_df = ticker_df_list[spy_idx]
-        SPY_var = float(SPY_df['daily_returns'].var())
-        for idx in range(len(ticker_list)):
-            tk = ticker_list[idx]
-            beta_dict[tk] = float(covar_df.iloc[0,idx])/SPY_var
-        return pd.DataFrame(beta_dict, index=[0])       
+    # get dataframe for SPY based on index
+    SPY_df = ticker_df_list[spy_idx].reset_index(level = 1, drop= True)
+    for idx in range(len(ticker_list)):
+        covar_dict[ticker_list[idx]]=ticker_df_list[idx].reset_index(level = 1, drop=True)['daily_returns'].cov(SPY_df['daily_returns'])
+    return pd.DataFrame(covar_dict, index=[0])
+
+#Beta Function       
+def get_beta_per_ticker(covar_df,ticker_df_list,ticker_list):
+    beta_dict ={}
+    try:
+        spy_idx=ticker_list.index("SPY")
+    except:
+        print("Cannot find SPY in ticker list. Cannot calculate Covariance based on SPY")
+        return
+
+    # get dataframe for SPY based on index
+    SPY_df = ticker_df_list[spy_idx]
+    SPY_var = float(SPY_df['daily_returns'].var())
+    for idx in range(len(ticker_list)):
+        tk = ticker_list[idx]
+        beta_dict[tk] = float(covar_df.iloc[0,idx])/SPY_var
+    return pd.DataFrame(beta_dict, index=[0])        
+        
+        
+    
+# wrap content in a streamlit container
+with st.container():
+        # 2 columns section:
+        col1, col2 = st.columns([4, 1])
+        with col1:           
+            # Load title/info
+            st.header("Welcome to the COVID financial portfolio analyzer")
+            st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
+        with col2:
+            # Load asset(s)
+            lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
+st.write("---") 
+    
     
 #Begin streamlit functionality
 # Select a time-period section
