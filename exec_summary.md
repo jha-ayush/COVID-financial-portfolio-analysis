@@ -4,7 +4,7 @@
 For our project, we have decided to create a two component application, designed to attract new users in the portfolio management space for stocks and ETFs. The CLI portion of our project is designed to be a free teaser for new users. The streamlit portion of our project is designed to be subscription based, for users who enjoyed our CLI component and would like to further explore our applications.
 
 ### The Core
-The core of our project is essentially a portfolio analyzer that analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s). Of the three sectors chosen, six assets were chosen to track. The six assets include sector leading individual stocks, and sector wide broad based ETFs. Also, selected was a proxy ETF for the S&P 500 as a benchmark.
+The core of our project is essentially a portfolio analyzer that analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s). Of the three sectors chosen, six assets were chosen to track. The six assets include sector leading individual stocks (chosen by market cap and market power), and sector wide broad based ETFs (chosen by market cap and market power). Also, selected was a proxy ETF for the S&P 500 as a benchmark.
 
 ### Stocks & ETFs
 - `AMZN` - Amazon.com, Inc.
