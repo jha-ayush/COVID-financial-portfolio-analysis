@@ -1,71 +1,53 @@
 # COVID Portfolio Analysis
-> Business [pitch](https://share.synthesia.io/606a3c1a-5dc5-4f5e-b62c-714122d22ebd "Avatar pitch")
 
-> Executive [summary](https://github.com/jha-ayush/finance_portfolio_analyzer/blob/main/exec_summary.md "Executive summary")
+## Overview
+The project aims to analyze the performance of different sectors in the stock market during and after the COVID-19 pandemic. To do this, we have developed a web application using the Python framework Streamlit, which allows us to build interactive data applications with minimal code.
 
-> Streamlit web [app](https://jha-ayush-finance-portfolio-analyzer-home-dnt6yf.streamlit.app/ "Portfolio analyzer web app")
+The web application allows users to select a sector and a time period, and then displays the performance of that sector over the chosen period using a variety of metrics and statistics. These include the *Sharpe Ratio*, *Calmar Ratio*, *Omega Ratio*, and *Sortino Ratio*, which are commonly used to evaluate the risk-adjusted returns of investments. We calculated these ratios using the `pyfolio` python library, which provides a suite of tools for portfolio and risk analysis.
 
-> Project [presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing "Portfolio Analyzer")
+## Technology Stack
+Language: Python
 
-### Launch app on localhost:
-- `git clone` main [branch](https://github.com/jha-ayush/finance_portfolio_analyzer "Main Branch")
-- Navigate to the local directory in Terminal
-- Switch to `dev` environment `conda activate dev`
-- `pip install -r requirements.txt`
-- Navigate to `functionality_files` directory in Terminal
-- Enter `streamlit run Home.py` to launch localhost app
+Web framework: Streamlit
 
-### Team members
-- **Christine Pham**  -  `cpham35`
-- **Kranthi Mitta**  -  `kranthicmitta`
-- **Kevin Herndon**  -  `Kevtech577`
-- **Ben Smookler**  -  `BenSmook`
-- **Ayush Jha**  -  `jha-ayush`
+**Libraries:** `pip install -r requirements.txt`
 
-### Research Questions to Answer
-- As a user, I want to be able to access the portfolio online online
-- As a user, I want access to visualization data for at least 3-5 years in the past from the current time period
-- As a user, I want access to visualization data for only the stocks in the portfolio
-- As a user, I want access to dashboard to assess the movement of the stocks
-- As a user, I want to be able to compare the portfolio against the S&P500 index
-- As a user, I want access to visualization data for multiple scenarios of investment types
-- As a user, I would like suggestions on the following tracks (most risky to most conservative) for the portfolio
+**API:** Polygon Stocks API
 
+## Features
+- Select a sector and a time period
+- View the performance of the selected sector over the chosen period using the Sharpe Ratio, Calmar Ratio, Omega Ratio, and - Sortino Ratio
+- Explore the performance of different sectors in the pre-pandemic, pandemic, and post-pandemic periods
+- Running the Web Application Locally
+- To run the web application locally, you will need to clone the main branch of the project from GitHub and install the required dependencies. You can do this by following these steps:
 
+## Running the Web Application Locally
+To run the web application locally, you will need to clone the main branch of the project from GitHub and install the required dependencies. You can do this by following these steps:
+- `git clone` the `main` branch
+- Navigate to the local directory in the terminal
+- Switch to the `dev` environment using `conda activate dev`
+- Install the dependencies using `pip install -r requirements.txt`
+- Navigate to the `functionality_files` directory in the terminal
+- Run `streamlit run Home.py` to launch the localhost app
 
-#### Analysis
-To analyze each sector and time period, we used a variety of metrics and statistics, such as Sharpe Ratio, Calmar Ratio, Omega Ratio and Sortino Ratio.
+## Data Sources
+We used the Polygon Stocks API to retrieve historical financial data for different stocks and sectors. We used the requests library to make HTTP requests to the API and the pandas library to process the data and calculate the ratios. We used the Starter paywall offered by Polygon.io, which allows us to make a limited number of API calls per month.
 
+## Team Members
+Christine Pham (`cpham35`)
 
-#### Results
+Kranthi Mitta (`kranthicmitta`)
 
-##### Pre-Pandemic Results:
-As expected most of the sectors were experiencing a growth environment. This was consistent with the rest of the economy at large. We found the Technology sector to be the best performing sector, as a whole as the Sharpe Ratio, Calmar Ratio, Omega Ratio and Sortino Ratio were highest in this sector. It is important to note, in particular, investing in AMT (American Towers) would have yielded the biggest returns for the pre-pandemic period as it had the absolute highest ratios. We found the worst performing sector to be the Energy sector, with negative values for the aforementioned ratios.
+Kevin Herndon (`Kevtech577`)
 
-##### Pandemic Results:
-With a large portion of Americans at home and the ease of online shopping, the Consumer Goods sector was the first to recover from the initial shock of the economic slowdown caused by the Pandemic. We found the Technology sector to be the best performing sector, as the Sharpe Ratio, Calmar Ratio, Omega Ratio and Sortino Ratio were highest in this sector. We found the worst performing sector to be the Real Estate sector, with the lowest values for the aforementioned ratios.
+Ben Smookler (`BenSmook`)
 
-##### Post-Pandemic Results:
-We found the Energy sector to be the best perfoming sector, as the Sharpe Ratio, Calmar Ratio, Omega Ratio and Sortino Ratio were by far the highest in this sector. Specifically, investing in XOM (Exxon Mobile) would have yielded the greatest returns for the post-pandemic period. We found the worst performing sector to be the Technology sector, with the largest negative values for the aforementioned ratios.
+Ayush Jha (`jha-ayush`)
 
 
+## Links
+[Presentation](https://docs.google.com/presentation/d/1h6WeGVXbMMQkdrFOkK9d-qfRLPB0UTQduO6VTPxZbtA/edit?usp=sharing)
 
-#### Technical notes
+[Web app](https://jha-ayush-finance-portfolio-analyzer-home-dnt6yf.streamlit.app/)
 
-##### Project Description/Outline
-We will use [polygon.io](https://polygon.io/ "Polygon.io") to make [RESTful API](https://polygon.io/docs/stocks/getting-started "Polygon Stocks API Docs") calls using their [Starter paywall](https://polygon.io/pricing "Polygon pricing") with the following features below:
-
-- <sub>$29/month</sub>
-- <sub>15-minute delayed data</sub>
-- <sub>5 years max historical data</sub>
-- <sub>100% market coverage</sub>
-
-
-#### Environment setup
-
-To install all required packages
-- `pip install -r requirements.txt`
-
-
-
-
+<sub>*Disclaimer:* The web app is currently broken online. Please access the app by running locally.</sub>
