@@ -51,7 +51,9 @@ def local_css(file_name):
     Use a local style.css file.
     """
     with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True) 
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        # load css file
+        local_css("./style/style.css")
         
 # functions
 def get_prices(start_date,end_date,universe):
@@ -233,9 +235,29 @@ def get_beta_per_ticker(covar_df,ticker_df_list,ticker_list):
     for idx in range(len(ticker_list)):
         tk = ticker_list[idx]
         beta_dict[tk] = float(covar_df.iloc[0,idx])/SPY_var
-    return pd.DataFrame(beta_dict, index=[0])        
+    return pd.DataFrame(beta_dict, index=[0])   
+
+#df for Ticker
+
+def df_ticker(ticker_df_list,ticker_list,ticker):
+    try:
+        idx=ticker_list.index(ticker)
+    except:
+        print(f'Cannot find {ticker} in ticker list.')
+        return
+
+    # get dataframe for SPY based on index
+    ticker_df = ticker_df_list[idx]
+    return ticker_df
+
+def get_tickerdata_df(all_data, ticker_symbol):
+    idx = pd.IndexSlice
+    all_data_df = all_data.loc[idx[:,ticker_symbol],:]
+    return all_data_df
         
-        
+
+            
+    
     
 # wrap content in a streamlit container
 with st.container():
@@ -318,6 +340,8 @@ with st.container():
         #Concatenated Data             
             my_concat_df = create_concat_df(ticker_df_list,ticker_list)
             #display(my_concat_df)
+            
+            #RTH_df = all_data_df.loc[]
 
         #STD Data
             std_df = create_std_df(my_concat_df, ticker_type_list)
@@ -338,28 +362,55 @@ with st.container():
             if user_choice_question =="Option 1: Which stock(s) performed well?":
                 mytopstock = get_ticker_string(top_stock(mysqlengine))
                 st.success(f'{mytopstock} is the top performing stock', icon="✅")
-                st.write("Insert 'Top Stock' dataframe")
-                st.write("Insert 'Top Stock' plot")
+                #show_df=df_ticker(ticker_df_list,ticker_list,mytopstock)
+                show_df=get_tickerdata_df(all_data,mytopstock)
+                st.write(show_df)
+                st.subheader(f"{mytopstock} Bollinger bands")
+                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
+                qf.add_bollinger_bands()
+                fig = qf.iplot(asFigure=True)
+                st.plotly_chart(fig)
+
+                #st.line_chart(show_df)
+                #st.pyplot(show_df)
+                
             elif user_choice_question =="Option 2: Which ETF(s) performed well?":
                 mytopetf = get_ticker_string(top_etf(mysqlengine))
                 st.success(f'{mytopetf} is the top performing ETF', icon="✅")
-                st.write("Insert 'Top ETF' dataframe")
-                st.write("Insert 'Top ETF' plot")
+                show_df=get_tickerdata_df(all_data,mytopetf)
+                st.write(show_df)
+                st.subheader(f"{mytopetf} Bollinger bands")
+                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
+                qf.add_bollinger_bands()
+                fig = qf.iplot(asFigure=True)
+                st.plotly_chart(fig)
             elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
                 surspy=sur_spy(mysqlengine)
                 st.write('Ticker(s) that performed better than SPY is/are:', surspy)
-                st.write("Insert 'Ticker(s) that performed better than SPY' dataframe")
-                st.write("Insert 'Ticker(s) that performed better than SPY' plot")
+                #st.write(df_ticker(ticker_df_list,ticker_list,surspy))
+                show_df=get_ticker_data_df(all_data,surspy)
+                #st.write(show_df)
+                #st.write("Insert 'Ticker(s) that performed better than SPY' plot")
             elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
                 mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
                 st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
-                st.write("Insert 'Stock performed better than SPY' dataframe")
-                st.write("Insert 'Stock performed better than SPY' plot")
+                show_df=get_tickerdata_df(all_data,mybottomstock)
+                st.write(show_df)
+                st.subheader(f"{mybottomstock} Bollinger bands")
+                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
+                qf.add_bollinger_bands()
+                fig = qf.iplot(asFigure=True)
+                st.plotly_chart(fig)
             elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
                 mybottometf = get_ticker_string(bottom_etf(mysqlengine))
                 st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
-                st.write("Insert 'ETF performed better than SPY' dataframe")
-                st.write("Insert 'ETF performed better than SPY' plot")
+                show_df=get_tickerdata_df(all_data,mybottometf)
+                st.write(show_df)
+                st.subheader(f"{mybottometf} Bollinger bands")
+                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
+                qf.add_bollinger_bands()
+                fig = qf.iplot(asFigure=True)
+                st.plotly_chart(fig)
             else:
                  st.success(f'User choice is not valid', icon="❌")
             with col2: st.empty()
@@ -393,19 +444,19 @@ with st.container():
                 st.write(f'User choice is not valid')      
 
 # Data table & visualizations
-with st.container():            
-            st.write("---")
+#with st.container():            
+            #st.write("---")
             # Display data table
-            st.subheader("'All data' dataframe")
-            st.write(all_data.tail())
+            #st.subheader("'All data' dataframe")
+            #st.write(all_data)
             #plot data
             # st.line_chart(all_data)
             # Bollinger bands - trendlines plotted between two standard deviations
-            st.subheader(f"'All data' Bollinger bands")
-            qf=cf.QuantFig(all_data,title='First Quant Figure',legend='top',name='GS')
-            qf.add_bollinger_bands()
-            fig = qf.iplot(asFigure=True)
-            st.plotly_chart(fig)
+            #st.subheader(f"'All data' Bollinger bands")
+            #qf=cf.QuantFig(all_data,title='First Quant Figure',legend='top',name='GS')
+            #qf.add_bollinger_bands()
+            #fig = qf.iplot(asFigure=True)
+            #st.plotly_chart(fig)
 
 # Contact Form
 with st.container():
