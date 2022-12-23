@@ -1,30 +1,21 @@
 # Executive summary
 
-### Project Outline
-For our project, we have decided to create a two component application, designed to attract new users in the portfolio management space for stocks and ETFs. The CLI portion of our project is designed to be a free teaser for new users. The streamlit portion of our project is designed to be subscription based, for users who enjoyed our CLI component and would like to further explore our applications.
+## Title: Financial Portfolio Analyzer
 
 ### The Core
 The core of our project is essentially a portfolio analyzer that analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s). Of the three sectors chosen, six assets were chosen to track. The six assets include sector leading individual stocks (chosen by market cap and market power), and sector wide broad based ETFs (chosen by market cap and market power). Also, selected was a proxy ETF for the S&P 500 as a benchmark.
 
-### Stocks & ETFs
-- `AMZN` - Amazon.com, Inc.
-- `AMT` - American Tower Corp
-- `XOM` - Exxon Mobil Corp
-- `XLE` - Energy Select Sector SPDR ETF Fund
-- `IYR` - iShares US Real Estate ETF
-- `RTH` - VanEck Retail ETF
-- `SPY` - S&P500 ETF
+## Key Features:
+The CLI: answers a variety of investment questions for users.
 
+Price/Returns Data: users can choose any ticker from a wide range of indexes and obtain the price/returns data for that ticker.
 
-### Time Periods
+Statistics/Visualizations/Tearsheets: users can easily analyze and visualize tickers in the form of a multitude of statistics, graphs and pyfolio tearsheets.
 
-*Pre-pandemic*:
-- start_date = 2017-03-01
-- end_date = 2020-03-01
+Email Functionality: users can easily contact the platform founders right from the site!
 
-*Pandemic*:
-- start_date = 2020-03-01
-- end_date = 2022-03-01
+## Target Audience: 
+Our Financial Portfolio Analyzer is designed for the growing pool of starting/amateur traders and investors who need an acessible platform to analyze assets and make investment decisions.
 
 *Post-pandemic*:
 - start_date = 2022-03-01
