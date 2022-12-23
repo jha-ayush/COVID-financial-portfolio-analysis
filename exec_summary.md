@@ -12,6 +12,7 @@ Statistics/Visualizations/Tearsheets: users can easily analyze and visualize the
 
 Email Functionality: users can easily contact the platform founders right from the site!
 
-Target Audience: Our Financial Portfolio Analyzer is designed for the growing pool of starting/amatuer traders and investors who need an acessible platform to analyze and make investment decisions.
+## Target Audience: 
+Our Financial Portfolio Analyzer is designed for the growing pool of starting/amatuer traders and investors who need an acessible platform to analyze and make investment decisions.
 
 Overall, our Financial Portfolio Analyzer is a powerful and accessible financial analysis tool for amateur traders/investors. It makes portfolio analysis easy and efficient, so that users can focus on growing their confidence in trading/investing.
