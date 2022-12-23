@@ -16,10 +16,10 @@ Web framework: Streamlit
 
 ## Features
 - Select a sector and a time period
-- View the performance of the selected sector over the chosen period using the Sharpe Ratio, Calmar Ratio, Omega Ratio, and - Sortino Ratio
+- View the performance of the selected sector over the chosen period using the `Sharpe Ratio`, `Calmar Ratio`, `Omega Ratio`, and `Sortino Ratio`
 - Explore the performance of different sectors in the pre-pandemic, pandemic, and post-pandemic periods
 - Running the Web Application Locally
-- To run the web application locally, you will need to clone the main branch of the project from GitHub and install the required dependencies. You can do this by following these steps:
+- To run the web application locally, you will need to clone the main branch of the project from GitHub and install the required dependencies. 
 
 ## Running the Web Application Locally
 To run the web application locally, you will need to clone the main branch of the project from GitHub and install the required dependencies. You can do this by following these steps:
