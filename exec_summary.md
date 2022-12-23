@@ -10,7 +10,7 @@ The CLI: answers a variety of investment questions for users.
 
 Price/Returns Data: users can choose any ticker from a wide range of indexes and obtain the price/returns data for that ticker.
 
-Statistics/Visualizations/Tearsheets: users can easily analyze and visualize their findings in the form of a multitude of statistics, graphs and pyfolio tearsheets.
+Statistics/Visualizations/Tearsheets: users can easily analyze and visualize tickers in the form of a multitude of statistics, graphs and pyfolio tearsheets.
 
 Email Functionality: users can easily contact the platform founders right from the site!
 
