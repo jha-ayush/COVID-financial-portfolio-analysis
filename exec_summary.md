@@ -33,3 +33,12 @@ The core of our project is essentially a portfolio analyzer that analyzes the re
 
 ### Limitations and Future Expectations
 We aim to give users the best experience possible on our streamlit platform, so we have decided to include a wide variety of features that have taken more time to implement than we initially anticipated. Our streamlit platform should be available to users in the upcoming weeks. We appreciate your patience, and in the meantime, enjoy our CLI!
+
+
+# Financial Portfolio Analyzer
+
+The Financial Portfolio Analyzer is a tool that is designed to help amateur traders and investors make informed investment decisions. It includes both a command-line interface (CLI) component and a web-based application, both of which are designed to be user-friendly and accessible to a wide range of users.
+
+One key feature of the tool is its ability to provide real-time ticker price and returns data, which allows users to track the performance of different assets over time. The tool also includes a range of statistics and visualizations, which can help users understand the performance of different assets and make informed decisions about their investments. In addition, the tool includes email functionality, which allows users to easily contact the platform founders with any questions or concerns they may have.
+
+The target audience for the Financial Portfolio Analyzer is amateur traders and investors who need an accessible platform to analyze assets and make investment decisions. The tool is designed to be user-friendly and easy to use, so that users can focus on growing their confidence in trading and investing. Overall, the Financial Portfolio Analyzer is a powerful and accessible tool that aims to make portfolio analysis easy and efficient for amateur traders and investors.

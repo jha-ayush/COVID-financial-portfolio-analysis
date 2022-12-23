@@ -34,7 +34,9 @@ with st.container():
     st.header("Tearsheets - AMT, AMZN, IYR, RTH, XLE, XOM, SPY")
     st.write("These are teaser metric snapshots of the tickers")
     st.write("---")
-    
+    st.snow()
+
+
     width = st.slider('What width would you like in pixels?', 0, 700, 350)
     
     # iterate through the items in the array
@@ -42,7 +44,7 @@ with st.container():
         # load the image file for the ticker
         image=Image.open(f"../Images/{ticker}.png")
         # display the image
-        image.show()
+        image.show()    
              
 
     
