@@ -35,6 +35,7 @@ st.set_page_config(page_title="COVID portfolio analyzer",page_icon=":bar_chart:"
 # functions
 
 # Create a function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
+
 def load_lottieurl(url):
     """
     Loads the json data for a Lottie animation using the given URL.
@@ -44,6 +45,8 @@ def load_lottieurl(url):
     if r.status_code != 200:
         return None
     return r.json()
+#load lottie asset
+lottie_coding=load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_rli35wrb.json")
 
 # Use local style.css file
 def local_css(file_name):
@@ -52,8 +55,8 @@ def local_css(file_name):
     """
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-        # load css file
-        local_css("./style/style.css")
+# load css file
+local_css("./style/style.css")
         
 # functions
 def get_prices(start_date,end_date,universe):
@@ -102,6 +105,15 @@ def get_ticker_data_df(all_data, ticker_symbol):
     idx = pd.IndexSlice
     daily_returns_df = all_data.loc[idx[:,ticker_symbol],['daily_returns']]
     return daily_returns_df
+
+def dispay_df_chart(all_data,ticker):            	
+    show_df=get_tickerdata_df(all_data,ticker)	
+    st.write(show_df)	
+    st.subheader(f"{ticker} Bollinger bands")	
+    qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')	
+    qf.add_bollinger_bands()	
+    fig = qf.iplot(asFigure=True)	
+    st.plotly_chart(fig)
 
 def create_concat_df(ticker_df_list,ticker_list):
     concat_df = pd.concat(ticker_df_list,axis=1, keys=ticker_list)
@@ -255,21 +267,29 @@ def get_tickerdata_df(all_data, ticker_symbol):
     all_data_df = all_data.loc[idx[:,ticker_symbol],:]
     return all_data_df
         
-
+def dispay_df_chart(all_data,ticker):            
+    show_df=get_tickerdata_df(all_data,ticker)
+    st.write(show_df)
+    st.subheader(f"{ticker} Bollinger bands")
+    qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
+    qf.add_bollinger_bands()
+    fig = qf.iplot(asFigure=True)
+    st.plotly_chart(fig)
             
     
     
 # wrap content in a streamlit container
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([4, 1])
+        col1, col2 = st.columns([3, 2])
         with col1:           
             # Load title/info
-            st.header("Welcome to the COVID financial portfolio analyzer")
+            st.header("COVID financial portfolio analyzer")
+            st_lottie(lottie_coding,height=150,key="finance")
             st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
         with col2:
             # Load asset(s)
-            lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
+            st.empty()
 st.write("---") 
     
     
@@ -280,7 +300,7 @@ with st.container():
     #CLI OPTIONS    
             
         # 2 columns section:
-        col1, col2 = st.columns([4, 1])
+        col1, col2 = st.columns([3, 1])
         with col1:
             start_date=""
             end_date=""
@@ -422,7 +442,7 @@ with st.container():
         with col1:           
             st.write("###") 
             st.write("###")
-            ratio_choice = st.selectbox("Choose from one of the financial ratios below",("variance","co-variance","beta","mean","std-deviation","omega ratio"),label_visibility="visible")
+            ratio_choice = st.selectbox("Choose from one of the financial ratios below",("variance","co-variance","beta","mean","std-deviation"),label_visibility="visible")
 
             if ratio_choice == "variance":
                 var_df = get_variance_per_ticker(ticker_df_list,ticker_list)
@@ -438,8 +458,6 @@ with st.container():
                 st.dataframe(my_mean_df)
             elif ratio_choice == "std-deviation":
                 st.dataframe(std_df)
-            elif ratio_choice == "omega ratio":
-                st.empty()
             else:
                 st.write(f'User choice is not valid')      
 
@@ -480,7 +498,8 @@ with st.container():
     with left_column:
         st.markdown(contact_form, unsafe_allow_html=True)
         # Display balloons
-        st.balloons()
+        # st.balloons()
+        # st.snow()
     with mid_column:
         st.empty()
     with right_column:
