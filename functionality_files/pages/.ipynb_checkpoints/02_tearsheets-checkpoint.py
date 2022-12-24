@@ -63,6 +63,8 @@ else:
     width = st.slider('What width would you like in pixels?', 0, 700, 350)
     image = Image.open("../Images/SPY.png")
     st.image(image, caption='SPY Tearsheet', width=width)
+# st.snow()
+st.balloons()
     
 
 

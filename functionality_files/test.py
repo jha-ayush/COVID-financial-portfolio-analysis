@@ -35,7 +35,6 @@ st.set_page_config(page_title="COVID portfolio analyzer",page_icon=":bar_chart:"
 # functions
 
 # Create a function to access the json data of the Lottie animation using requests - if successful return 200 - data is good, show animation else return none
-
 def load_lottieurl(url):
     """
     Loads the json data for a Lottie animation using the given URL.
@@ -105,15 +104,6 @@ def get_ticker_data_df(all_data, ticker_symbol):
     idx = pd.IndexSlice
     daily_returns_df = all_data.loc[idx[:,ticker_symbol],['daily_returns']]
     return daily_returns_df
-
-def dispay_df_chart(all_data,ticker):            	
-    show_df=get_tickerdata_df(all_data,ticker)	
-    st.write(show_df)	
-    st.subheader(f"{ticker} Bollinger bands")	
-    qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')	
-    qf.add_bollinger_bands()	
-    fig = qf.iplot(asFigure=True)	
-    st.plotly_chart(fig)
 
 def create_concat_df(ticker_df_list,ticker_list):
     concat_df = pd.concat(ticker_df_list,axis=1, keys=ticker_list)
@@ -275,21 +265,21 @@ def dispay_df_chart(all_data,ticker):
     qf.add_bollinger_bands()
     fig = qf.iplot(asFigure=True)
     st.plotly_chart(fig)
+                
             
     
     
 # wrap content in a streamlit container
 with st.container():
         # 2 columns section:
-        col1, col2 = st.columns([3, 2])
+        col1, col2 = st.columns([4, 1])
         with col1:           
             # Load title/info
-            st.header("COVID financial portfolio analyzer")
-            st_lottie(lottie_coding,height=150,key="finance")
+            st.header("Welcome to the COVID financial portfolio analyzer")
             st.markdown("This web app analyzes the returns of three different sectors of stocks/ETFs (Tech, Real Estate, Energy) across three different time periods (pre-pandemic, pandemic, post-pandemic), in order to analyze which sector(s) would have been the best to invest in for each time period(s)")
         with col2:
             # Load asset(s)
-            st.empty()
+            lottiefiles_gif=load_lottieurl("https://assets7.lottiefiles.com/private_files/lf30_ghysqmiq.json")
 st.write("---") 
     
     
@@ -300,7 +290,7 @@ with st.container():
     #CLI OPTIONS    
             
         # 2 columns section:
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([4, 1])
         with col1:
             start_date=""
             end_date=""
@@ -374,63 +364,40 @@ with st.container():
         #SQL Engine    
             mysqlengine= create_sql_table(my_mean_df)
 
-
-         #CLI OPTIONS 
+     
+        #CLI OPTIONS 
             # Display table - Store data in a variable
             all_data = get_prices(start_date=start_date, end_date=end_date, universe=ticker_list)
             
             if user_choice_question =="Option 1: Which stock(s) performed well?":
                 mytopstock = get_ticker_string(top_stock(mysqlengine))
                 st.success(f'{mytopstock} is the top performing stock', icon="✅")
-                #show_df=df_ticker(ticker_df_list,ticker_list,mytopstock)
-                show_df=get_tickerdata_df(all_data,mytopstock)
-                st.write(show_df)
-                st.subheader(f"{mytopstock} Bollinger bands")
-                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
-                qf.add_bollinger_bands()
-                fig = qf.iplot(asFigure=True)
-                st.plotly_chart(fig)
+                dispay_df_chart(all_data,mytopstock)
 
-                #st.line_chart(show_df)
-                #st.pyplot(show_df)
-                
             elif user_choice_question =="Option 2: Which ETF(s) performed well?":
                 mytopetf = get_ticker_string(top_etf(mysqlengine))
                 st.success(f'{mytopetf} is the top performing ETF', icon="✅")
-                show_df=get_tickerdata_df(all_data,mytopetf)
-                st.write(show_df)
-                st.subheader(f"{mytopetf} Bollinger bands")
-                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
-                qf.add_bollinger_bands()
-                fig = qf.iplot(asFigure=True)
-                st.plotly_chart(fig)
+                dispay_df_chart(all_data,mytopetf)
+                
             elif user_choice_question =="Option 3: Which ticker(s) performed better than SPY?":
                 surspy=sur_spy(mysqlengine)
                 st.write('Ticker(s) that performed better than SPY is/are:', surspy)
                 #st.write(df_ticker(ticker_df_list,ticker_list,surspy))
-                show_df=get_ticker_data_df(all_data,surspy)
+                #show_df=get_ticker_data_df(all_data,surspy)
                 #st.write(show_df)
                 #st.write("Insert 'Ticker(s) that performed better than SPY' plot")
+                for ticker in surspy['Best Performers'].values.tolist():
+                    dispay_df_chart(all_data,ticker)
+                    
             elif user_choice_question =="Option 4: Which stock(s) performed inversely?":
                 mybottomstock = get_ticker_string(bottom_stock(mysqlengine))
                 st.success(f'{mybottomstock} is the most inversely performing stock', icon="✅")
-                show_df=get_tickerdata_df(all_data,mybottomstock)
-                st.write(show_df)
-                st.subheader(f"{mybottomstock} Bollinger bands")
-                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
-                qf.add_bollinger_bands()
-                fig = qf.iplot(asFigure=True)
-                st.plotly_chart(fig)
+                dispay_df_chart(all_data,mybottomstock)
+                
             elif user_choice_question =="Option 5: Which ETF(s) performed inversely?":
                 mybottometf = get_ticker_string(bottom_etf(mysqlengine))
                 st.success(f'{mybottometf} is the most inversely performing ETF', icon="✅")
-                show_df=get_tickerdata_df(all_data,mybottometf)
-                st.write(show_df)
-                st.subheader(f"{mybottometf} Bollinger bands")
-                qf=cf.QuantFig(show_df,title='First Quant Figure',legend='top',name='GS')
-                qf.add_bollinger_bands()
-                fig = qf.iplot(asFigure=True)
-                st.plotly_chart(fig)
+                dispay_df_chart(all_data,mybottometf)
             else:
                  st.success(f'User choice is not valid', icon="❌")
             with col2: st.empty()
@@ -498,8 +465,7 @@ with st.container():
     with left_column:
         st.markdown(contact_form, unsafe_allow_html=True)
         # Display balloons
-        # st.balloons()
-        # st.snow()
+        st.balloons()
     with mid_column:
         st.empty()
     with right_column:
